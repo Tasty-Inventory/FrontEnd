@@ -78,7 +78,7 @@ function Header() {
               <LinkItem to="/settings">Settings</LinkItem>
             </li>
             <ProfileWrap>
-              <LinkItem to="/settings">
+              <LinkItem to="/login">
                 <ProfileImg src={mockupProfile} alt="임시프로필이미지" />
               </LinkItem>
             </ProfileWrap>

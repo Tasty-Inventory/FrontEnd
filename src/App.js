@@ -6,6 +6,9 @@ import MenuList from './pages/MenuList';
 import Settings from './pages/Settings';
 import Staff from './pages/Staff';
 import Login from './pages/user/Login';
+import FindId from './pages/user/FindId';
+import FindPw from './pages/user/FindPw';
+import Register from './pages/user/Register';
 
 function App() {
   return (
@@ -19,7 +22,10 @@ function App() {
             <Route path="/menulist" element={<MenuList />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/staff" element={<Staff />} />
-            <Route path="login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/findid" element={<FindId />} />
+            <Route path="/findpw" element={<FindPw />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </BrowserRouter>
