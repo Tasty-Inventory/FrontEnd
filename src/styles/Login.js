@@ -7,7 +7,7 @@ export const FormBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 40px;
+  gap: 20px;
 `;
 
 export const FormTitle = styled.h3`
@@ -78,4 +78,12 @@ export const FindWrap = styled.ul`
 export const Contour = styled.hr`
   height: 14px;
   border: 0.5px solid #232121;
+`;
+
+export const FormDescription = styled.p`
+  color: #7b7a7a;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 150%;
 `;

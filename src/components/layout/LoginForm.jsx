@@ -1,40 +1,32 @@
 import React from 'react';
 import * as L from '../../styles/Login';
 
-function LoginForm() {
+function LoginForm({
+  title,
+  descriptionOnOFF,
+  description,
+  inputs,
+  btn_category,
+  children,
+}) {
   return (
     <L.FormBox>
-      <L.FormTitle>로그인</L.FormTitle>
+      <L.FormTitle>{title}</L.FormTitle>
+      {/* 로그인 페이지는 description이 없음. */}
+      {descriptionOnOFF && <L.FormDescription>{description}</L.FormDescription>}
       <L.Form>
-        <L.InputWrap>
-          <L.LoginInput type="text" name="id" placeholder="이메일" />
-        </L.InputWrap>
-        <L.InputWrap>
-          <L.LoginInput
-            type="password"
-            name="password"
-            placeholder="비밀번호"
-          />
-        </L.InputWrap>
-        <L.LoginBtn type="submit">로그인</L.LoginBtn>
+        {inputs.map((input, index) => (
+          <L.InputWrap key={index}>
+            <L.LoginInput
+              type={input.type}
+              name={input.name}
+              placeholder={input.placeholder}
+            />
+          </L.InputWrap>
+        ))}
+        <L.LoginBtn type="submit">{btn_category}</L.LoginBtn>
       </L.Form>
-      <L.FindWrap>
-        <li>
-          <L.LinkItem to="/findid">아이디 찾기</L.LinkItem>
-        </li>
-        <li>
-          <L.Contour />
-        </li>
-        <li>
-          <L.LinkItem to="/findpw">비밀번호 찾기</L.LinkItem>
-        </li>
-        <li>
-          <L.Contour />
-        </li>
-        <li>
-          <L.LinkItem to="/register">회원가입</L.LinkItem>
-        </li>
-      </L.FindWrap>
+      {children}
     </L.FormBox>
   );
 }
