@@ -3,44 +3,104 @@ import LoginForm from '../../components/layout/LoginForm';
 import * as L from '../../styles/Login';
 import { useState } from 'react';
 import AuthService from '../../apis/AuthService';
+import warningIcon from '../../assets/images/warning-icon.svg';
+import eyeIcon from '../../assets/images/eye-icon.svg';
+import deleteIcon from '../../assets/images/delete-icon.svg';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [usernameError, setUsernameError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const handleClearUsername = () => {
+    setUsername('');
+  };
+
+  const handleClearPassword = () => {
+    setPassword('');
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const handleLogin = async () => {
     try {
       const response = await AuthService.login(username, password);
-      // 로그인에 성공하면 적절한 처리를 수행합니다.
       console.log('로그인 성공!', response);
+      alert(response.message);
     } catch (error) {
-      // 로그인에 실패하면 에러 메시지를 표시합니다.
-      // setErrorMessage('로그인 실패. 사용자명 또는 비밀번호를 확인해주세요.');
+      // 에러 메시지
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        const errorMessage = error.response.data.message;
+        if (errorMessage.includes('이메일')) {
+          setUsernameError(errorMessage);
+        }
+      } else {
+        setErrorMessage('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
       console.error('로그인 실패:', error);
     }
   };
+
   return (
     <>
       <Header />
       <LoginForm title="로그인" descriptionOnOFF={false}>
-        <L.InputWrap>
-          <L.LoginInput
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            placeholder="이메일"
-          />
-        </L.InputWrap>
-        <L.InputWrap>
-          <L.LoginInput
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="비밀번호"
-          />
-        </L.InputWrap>
+        <div>
+          <L.InputWrap>
+            <L.LoginInput
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              placeholder="이메일"
+              required
+            />
+            {username.length > 0 && (
+              <L.InputBtn onClick={handleClearUsername}>
+                <img src={deleteIcon} alt="삭제아이콘" />
+              </L.InputBtn>
+            )}
+          </L.InputWrap>
+          {usernameError && (
+            <L.WarningWrap>
+              <div>
+                <img src={warningIcon} alt="경고아이콘" />
+              </div>
+              <L.WarningLabel>{usernameError}</L.WarningLabel>
+            </L.WarningWrap>
+          )}
+        </div>
+
+        <div>
+          <L.InputWrap>
+            <L.LoginInput
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="비밀번호"
+              required
+            />
+            {password.length > 0 && (
+              <>
+                {' '}
+                <L.InputBtn onClick={handleClearPassword}>
+                  <img src={deleteIcon} alt="삭제아이콘" />
+                </L.InputBtn>
+                <L.InputBtn onClick={toggleShowPassword}>
+                  <img src={eyeIcon} alt="보기아이콘" />
+                </L.InputBtn>
+              </>
+            )}
+          </L.InputWrap>
+        </div>
         <L.LoginBtn onClick={handleLogin}>로그인</L.LoginBtn>
+        {errorMessage}
       </LoginForm>
       <L.FindWrap>
         <li>
