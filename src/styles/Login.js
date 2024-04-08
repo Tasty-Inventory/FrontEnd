@@ -31,6 +31,9 @@ export const InputWrap = styled.div`
   border: 1px solid #e4e1e1;
   background: #fff;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const LoginInput = styled.input`
@@ -70,9 +73,12 @@ export const LinkItem = styled(Link)`
 
 export const FindWrap = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   align-items: center;
   padding: 0 50px;
+  width: 358px;
+  margin: 0 auto;
 `;
 
 export const Contour = styled.hr`
@@ -86,4 +92,23 @@ export const FormDescription = styled.p`
   font-size: 14px;
   font-weight: 300;
   line-height: 150%;
+`;
+
+export const WarningWrap = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-top: 8px;
+`;
+
+export const WarningLabel = styled.label`
+  color: #ff5848;
+  font-size: 12px;
+  font-weight: 700;
+`;
+
+export const InputBtn = styled.button`
+  all: unset;
+  cursor: pointer;
+  padding: 5px;
 `;
