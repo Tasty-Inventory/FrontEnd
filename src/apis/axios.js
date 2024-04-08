@@ -3,11 +3,16 @@ import Cookies from 'js-cookie';
 
 const instance = axios.create({
   baseURL: 'http://localhost:8080/api/v1',
+  withCredentials: true,
+  headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:8080/api/v1',
+  },
 });
 
 instance.interceptors.request.use(config => {
   if (!config.method.toUpperCase().match(/^(GET|HEAD|TRACE|OPTIONS)$/)) {
     const csrfToken = Cookies.get('CSRF-TOKEN');
+
     if (csrfToken) {
       config.headers['X-CSRF-TOKEN'] = csrfToken;
     } else {

@@ -51,7 +51,7 @@ export default function Login() {
   return (
     <>
       <Header />
-      <LoginForm title="로그인" descriptionOnOFF={false}>
+      <LoginForm method="post" title="로그인" descriptionOnOFF={false}>
         <div>
           <L.InputWrap>
             <L.LoginInput
@@ -116,7 +116,7 @@ export default function Login() {
           <L.Contour />
         </li>
         <li>
-          <L.LinkItem to="/register">회원가입</L.LinkItem>
+          <L.LinkItem to="/signup">회원가입</L.LinkItem>
         </li>
       </L.FindWrap>
     </>

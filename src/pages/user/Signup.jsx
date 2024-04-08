@@ -7,7 +7,7 @@ import warningIcon from '../../assets/images/warning-icon.svg';
 import eyeIcon from '../../assets/images/eye-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 
-export default function Register() {
+export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,7 +48,6 @@ export default function Register() {
       const response = await AuthService.signup(name, email, password);
       // 회원가입에 성공하면 적절한 처리를 수행합니다.
       console.log('회원가입 성공!', response);
-      // 서버로부터 받은 메시지를 사용자에게 보여줍니다.
       alert(response.message);
       // 회원가입 성공 후 로그인 페이지로 이동 등의 처리를 수행할 수 있습니다.
     } catch (error) {
@@ -79,7 +78,7 @@ export default function Register() {
   return (
     <>
       <Header />
-      <LoginForm title="회원가입">
+      <LoginForm method="post" title="회원가입">
         <div>
           <L.InputWrap>
             <L.LoginInput

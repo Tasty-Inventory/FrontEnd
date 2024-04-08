@@ -3,6 +3,7 @@ import letterLogoImg from '../../assets/images/logo_letter.png';
 import mockupProfile from '../../assets/images/mockup-profile.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuth } from '../../store/AuthContext';
 
 const HeaderContainer = styled.header`
   height: 80px;
@@ -55,6 +56,7 @@ const ProfileImg = styled.img`
 `;
 
 function Header() {
+  const { isLoggedIn, logout } = useAuth();
   return (
     <HeaderContainer>
       <Container>
@@ -78,9 +80,13 @@ function Header() {
               <LinkItem to="/settings">Settings</LinkItem>
             </li>
             <ProfileWrap>
-              <LinkItem to="/login">
-                <ProfileImg src={mockupProfile} alt="임시프로필이미지" />
-              </LinkItem>
+              {isLoggedIn ? (
+                <button onClick={logout}>로그아웃</button>
+              ) : (
+                <LinkItem to="/login">
+                  <ProfileImg src={mockupProfile} alt="임시프로필이미지" />
+                </LinkItem>
+              )}
             </ProfileWrap>
           </NavList>
         </div>

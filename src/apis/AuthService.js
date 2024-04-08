@@ -1,11 +1,11 @@
 // AuthService.js
 
-import axios from './axios';
+import instance from './axios';
 
 const AuthService = {
   login: async (username, password) => {
     try {
-      const response = await axios.post('/login', {
+      const response = await instance.post('/authorize', {
         username,
         password,
       });
@@ -18,11 +18,12 @@ const AuthService = {
   },
   signup: async (name, email, password) => {
     try {
-      const response = await axios.post('/signup', {
+      const response = await instance.post('/users', {
         name,
         email,
         password,
       });
+      console.log(response);
       // 회원가입에 성공하면 서버로부터 받은 응답을 반환합니다.
       return response.data;
     } catch (error) {
