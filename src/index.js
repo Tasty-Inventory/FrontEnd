@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import App from './App';
 
 axios
-  .get('http://localhost:8080/api/v1/csrf-token')
+  .get(`${process.env.REACT_APP_SERVER_URL}csrf-token`)
   .then(response => {
     const csrfToken = response.data['CSRF-TOKEN'];
     Cookies.set('CSRF-TOKEN', csrfToken, { expires: 1 }); // 쿠키에 CSRF 토큰 저장

@@ -46,12 +46,9 @@ export default function Signup() {
   const handleSignup = async () => {
     try {
       const response = await AuthService.signup(name, email, password);
-      // 회원가입에 성공하면 적절한 처리를 수행합니다.
       console.log('회원가입 성공!', response);
       alert(response.message);
-      // 회원가입 성공 후 로그인 페이지로 이동 등의 처리를 수행할 수 있습니다.
     } catch (error) {
-      // 서버로부터 받은 에러 객체의 상태 코드를 확인하여 에러 메시지를 설정합니다.
       if (
         error.response &&
         error.response.data &&
@@ -68,7 +65,6 @@ export default function Signup() {
           setErrorMessage(errorMessage);
         }
       } else {
-        // 그 외의 상태 코드에 대해서는 일반적인 에러 메시지를 설정합니다.
         setErrorMessage('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
       }
       console.error('회원가입 실패:', error);
