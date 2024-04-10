@@ -6,6 +6,7 @@ import * as L from '../../styles/Login';
 import warningIcon from '../../assets/images/warning-icon.svg';
 import eyeIcon from '../../assets/images/eye-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -42,12 +43,13 @@ export default function Signup() {
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
       const response = await AuthService.signup(name, email, password);
-      console.log('회원가입 성공!', response);
       alert(response.message);
+      navigate('/login');
     } catch (error) {
       if (
         error.response &&
@@ -55,13 +57,24 @@ export default function Signup() {
         error.response.data.message
       ) {
         const errorMessage = error.response.data.message;
+
+        // 오류 메시지에 따라 각 상태를 업데이트
         if (errorMessage.includes('email')) {
           setEmailError(errorMessage);
-        } else if (errorMessage.includes('password')) {
+        }
+        if (errorMessage.includes('password')) {
           setPasswordError(errorMessage);
-        } else if (errorMessage.includes('name')) {
+        }
+        if (errorMessage.includes('name')) {
           setNameError(errorMessage);
-        } else {
+        }
+
+        // 이메일 또는 비밀번호, 이름이 아닌 다른 오류 메시지를 처리
+        if (
+          !errorMessage.includes('email') &&
+          !errorMessage.includes('password') &&
+          !errorMessage.includes('name')
+        ) {
           setErrorMessage(errorMessage);
         }
       } else {

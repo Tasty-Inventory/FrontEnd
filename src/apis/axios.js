@@ -11,7 +11,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(config => {
   if (!config.method.toUpperCase().match(/^(GET|HEAD|TRACE|OPTIONS)$/)) {
-    const csrfToken = Cookies.get('CSRF-TOKEN');
+    const csrfToken = Cookies.get('X-CSRF-TOKEN');
     if (csrfToken) {
       config.headers['X-CSRF-TOKEN'] = csrfToken;
     } else {

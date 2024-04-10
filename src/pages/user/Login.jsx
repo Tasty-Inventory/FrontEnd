@@ -6,6 +6,7 @@ import AuthService from '../../apis/AuthService';
 import warningIcon from '../../assets/images/warning-icon.svg';
 import eyeIcon from '../../assets/images/eye-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -25,11 +26,14 @@ export default function Login() {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
       const response = await AuthService.login(username, password);
-      console.log('로그인 성공!', response);
       alert(response.message);
+      navigate('/');
     } catch (error) {
       // 에러 메시지
       if (
