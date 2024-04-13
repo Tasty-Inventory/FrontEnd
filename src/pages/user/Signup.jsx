@@ -1,4 +1,3 @@
-import Header from '../../components/layout/Header';
 import LoginForm from '../../components/layout/LoginForm';
 import React, { useState } from 'react';
 import AuthService from '../../apis/AuthService';
@@ -85,123 +84,120 @@ export default function Signup() {
   };
 
   return (
-    <>
-      <Header />
-      <LoginForm method="post" title="회원가입">
-        <div>
-          <L.InputWrap>
-            <L.LoginInput
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              placeholder="이름"
-              required
-            />
-            {name.length > 0 && (
-              <L.InputBtn onClick={handleClearUsername}>
+    <LoginForm method="post" title="회원가입">
+      <div>
+        <L.InputWrap>
+          <L.LoginInput
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="이름"
+            required
+          />
+          {name.length > 0 && (
+            <L.InputBtn onClick={handleClearUsername}>
+              <img src={deleteIcon} alt="삭제아이콘" />
+            </L.InputBtn>
+          )}
+        </L.InputWrap>
+        {nameError && (
+          <L.WarningWrap>
+            <div>
+              <img src={warningIcon} alt="경고아이콘" />
+            </div>
+            <L.WarningLabel>{nameError}</L.WarningLabel>
+          </L.WarningWrap>
+        )}
+      </div>
+      <div>
+        <L.InputWrap>
+          <L.LoginInput
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="이메일"
+            required
+          />
+          {email.length > 0 && (
+            <L.InputBtn onClick={handleClearEmail}>
+              <img src={deleteIcon} alt="삭제아이콘" />
+            </L.InputBtn>
+          )}
+        </L.InputWrap>
+        {emailError && (
+          <L.WarningWrap>
+            <div>
+              <img src={warningIcon} alt="경고아이콘" />
+            </div>
+            <L.WarningLabel>{emailError}</L.WarningLabel>
+          </L.WarningWrap>
+        )}
+      </div>
+
+      <div>
+        <L.InputWrap>
+          <L.LoginInput
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="비밀번호"
+            required
+          />
+          {password.length > 0 && (
+            <>
+              {' '}
+              <L.InputBtn onClick={handleClearPassword}>
                 <img src={deleteIcon} alt="삭제아이콘" />
               </L.InputBtn>
-            )}
-          </L.InputWrap>
-          {nameError && (
-            <L.WarningWrap>
-              <div>
-                <img src={warningIcon} alt="경고아이콘" />
-              </div>
-              <L.WarningLabel>{nameError}</L.WarningLabel>
-            </L.WarningWrap>
+              <L.InputBtn onClick={toggleShowPassword}>
+                <img src={eyeIcon} alt="보기아이콘" />
+              </L.InputBtn>
+            </>
           )}
-        </div>
-        <div>
-          <L.InputWrap>
-            <L.LoginInput
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="이메일"
-              required
-            />
-            {email.length > 0 && (
-              <L.InputBtn onClick={handleClearEmail}>
+        </L.InputWrap>
+        {passwordError && (
+          <L.WarningWrap>
+            <div>
+              <img src={warningIcon} alt="경고아이콘" />
+            </div>
+            <L.WarningLabel>{passwordError}</L.WarningLabel>
+          </L.WarningWrap>
+        )}
+      </div>
+
+      <div>
+        <L.InputWrap>
+          <L.LoginInput
+            type="password"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+            placeholder="비밀번호 확인"
+            required
+          />
+          {confirmPassword.length > 0 && (
+            <>
+              {' '}
+              <L.InputBtn onClick={handleClearConfirmPassword}>
                 <img src={deleteIcon} alt="삭제아이콘" />
               </L.InputBtn>
-            )}
-          </L.InputWrap>
-          {emailError && (
-            <L.WarningWrap>
-              <div>
-                <img src={warningIcon} alt="경고아이콘" />
-              </div>
-              <L.WarningLabel>{emailError}</L.WarningLabel>
-            </L.WarningWrap>
+              <L.InputBtn onClick={toggleShowConfirmPassword}>
+                <img src={eyeIcon} alt="보기아이콘" />
+              </L.InputBtn>
+            </>
           )}
-        </div>
+        </L.InputWrap>
+        {passwordError && (
+          <L.WarningWrap>
+            <div>
+              <img src={warningIcon} alt="경고아이콘" />
+            </div>
+            <L.WarningLabel>{passwordError}</L.WarningLabel>
+          </L.WarningWrap>
+        )}
+      </div>
 
-        <div>
-          <L.InputWrap>
-            <L.LoginInput
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="비밀번호"
-              required
-            />
-            {password.length > 0 && (
-              <>
-                {' '}
-                <L.InputBtn onClick={handleClearPassword}>
-                  <img src={deleteIcon} alt="삭제아이콘" />
-                </L.InputBtn>
-                <L.InputBtn onClick={toggleShowPassword}>
-                  <img src={eyeIcon} alt="보기아이콘" />
-                </L.InputBtn>
-              </>
-            )}
-          </L.InputWrap>
-          {passwordError && (
-            <L.WarningWrap>
-              <div>
-                <img src={warningIcon} alt="경고아이콘" />
-              </div>
-              <L.WarningLabel>{passwordError}</L.WarningLabel>
-            </L.WarningWrap>
-          )}
-        </div>
-
-        <div>
-          <L.InputWrap>
-            <L.LoginInput
-              type="password"
-              value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}
-              placeholder="비밀번호 확인"
-              required
-            />
-            {confirmPassword.length > 0 && (
-              <>
-                {' '}
-                <L.InputBtn onClick={handleClearConfirmPassword}>
-                  <img src={deleteIcon} alt="삭제아이콘" />
-                </L.InputBtn>
-                <L.InputBtn onClick={toggleShowConfirmPassword}>
-                  <img src={eyeIcon} alt="보기아이콘" />
-                </L.InputBtn>
-              </>
-            )}
-          </L.InputWrap>
-          {passwordError && (
-            <L.WarningWrap>
-              <div>
-                <img src={warningIcon} alt="경고아이콘" />
-              </div>
-              <L.WarningLabel>{passwordError}</L.WarningLabel>
-            </L.WarningWrap>
-          )}
-        </div>
-
-        <L.LoginBtn onClick={handleSignup}>회원가입</L.LoginBtn>
-        {errorMessage && <label>{errorMessage}</label>}
-      </LoginForm>
-    </>
+      <L.LoginBtn onClick={handleSignup}>회원가입</L.LoginBtn>
+      {errorMessage && <label>{errorMessage}</label>}
+    </LoginForm>
   );
 }
