@@ -144,7 +144,7 @@ export default function Login() {
       <L.SocialWrap>
         <L.SocialLoginBtn
           color="#282828"
-          bgColor="#FAE64D"
+          backgroundColor="#FAE64D"
           border="none"
           onClick={() => handleSocialLogin('kakao')}
         >
@@ -153,7 +153,7 @@ export default function Login() {
         </L.SocialLoginBtn>
         <L.SocialLoginBtn
           color="#fff"
-          bgColor="#01C73C"
+          backgroundColor="#01C73C"
           border="none"
           onClick={() => handleSocialLogin('naver')}
         >
@@ -162,7 +162,7 @@ export default function Login() {
         </L.SocialLoginBtn>
         <L.SocialLoginBtn
           color="#282828"
-          bgColor="#fff"
+          backgroundColor="#fff"
           border="1px solid #C5C5C5"
           onClick={() => handleSocialLogin('google')}
         >

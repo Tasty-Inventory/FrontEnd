@@ -151,10 +151,31 @@ export const SocialLoginBtn = styled.button`
   height: 58px;
   border-radius: 8px;
   color: ${props => props.color};
-  background: ${props => props.bgColor};
+  background: ${props => props.backgroundColor};
   text-align: center;
   font-size: 18px;
   font-weight: 700;
   border: ${props => props.border};
   cursor: pointer;
+`;
+
+export const ConfirmTitle = styled.h3`
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+`;
+
+export const ConfirmLoginBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 58px;
+  border-radius: 8px;
+  background: #232121;
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  margin: 20px 0;
 `;

@@ -1,6 +1,7 @@
 import AuthService from '../../apis/AuthService';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuthDispatch } from '../../utils/AuthContext';
+import * as L from '../../styles/Login';
 
 export default function LoginNext() {
   const location = useLocation();
@@ -21,9 +22,11 @@ export default function LoginNext() {
   };
 
   return (
-    <>
-      {/* "계속하기" 버튼을 추가하고 클릭 시 handleContinue 함수를 호출합니다. */}
-      <button onClick={handleContinue}>계속하기</button>
-    </>
+    <L.FormBox>
+      <L.ConfirmTitle>계속 로그인 하려면 버튼을 누르세요.</L.ConfirmTitle>
+      <L.ConfirmLoginBtn onClick={handleContinue}>
+        로그인 계속
+      </L.ConfirmLoginBtn>
+    </L.FormBox>
   );
 }

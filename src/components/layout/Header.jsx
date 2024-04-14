@@ -73,8 +73,9 @@ function Header() {
     try {
       const response = await AuthService.logout();
       dispatch({ type: 'LOGOUT' });
-      navigate('/login');
+
       alert(response.message);
+      navigate('/login');
     } catch (error) {
       console.error('로그아웃 실패');
     }

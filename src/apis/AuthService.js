@@ -69,7 +69,7 @@ const AuthService = {
     }
 
     const params = {
-      redirect_uri: 'https://localhost:3000/loginnext',
+      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
       callback: 'login',
     };
 
