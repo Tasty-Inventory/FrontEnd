@@ -6,6 +6,7 @@ import MenuList from './pages/MenuList';
 import Settings from './pages/Settings';
 import Staff from './pages/Staff';
 import Login from './pages/user/Login';
+import LoginNext from './pages/user/LoginNext';
 import FindId from './pages/user/FindId';
 import FindPw from './pages/user/FindPw';
 import Signup from './pages/user/Signup';
@@ -26,6 +27,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/staff" element={<Staff />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/loginnext" element={<LoginNext />} />
             <Route path="/findid" element={<FindId />} />
             <Route path="/findpw" element={<FindPw />} />
             <Route path="/signup" element={<Signup />} />

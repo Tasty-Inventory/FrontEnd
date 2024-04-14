@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const FormBox = styled.div`
   width: 358px;
-  margin: 60px auto;
+  margin: 60px auto 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,9 +74,8 @@ export const LinkItem = styled(Link)`
 export const FindWrap = styled.ul`
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
-  padding: 0 50px;
   width: 358px;
   margin: 0 auto;
 `;
@@ -111,4 +110,51 @@ export const InputBtn = styled.button`
   all: unset;
   cursor: pointer;
   padding: 5px;
+`;
+
+export const HrWrap = styled.div`
+  display: flex;
+  width: 358px;
+  justify-content: center;
+  margin: 40px auto;
+  gap: 16px;
+`;
+
+export const SNSparagraph = styled.p`
+  color: #232121;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+`;
+
+export const Hr = styled.hr`
+  width: 100%;
+  border-width: 1px 0 0 0;
+  border-color: #000;
+`;
+
+export const SocialWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 358px;
+  margin: 0 auto;
+  gap: 16px;
+`;
+
+export const SocialLoginBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 58px;
+  border-radius: 8px;
+  color: ${props => props.color};
+  background: ${props => props.bgColor};
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  border: ${props => props.border};
+  cursor: pointer;
 `;

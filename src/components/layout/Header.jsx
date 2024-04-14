@@ -59,6 +59,12 @@ const LogoutBtn = styled.button`
   cursor: pointer;
 `;
 
+const LogoImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 function Header() {
   const { isAuthenticated, username } = useAuthState();
   const dispatch = useAuthDispatch();
@@ -79,7 +85,7 @@ function Header() {
       <Container>
         <LeftContainer>
           <Link to="/">
-            <img src={letterLogoImg} alt="로고" />
+            <LogoImage src={letterLogoImg} alt="로고" />
           </Link>
         </LeftContainer>
         <div>
