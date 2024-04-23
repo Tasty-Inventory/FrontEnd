@@ -9,10 +9,8 @@ const AuthService = {
         username,
         password,
       });
-      // 로그인에 성공하면 서버로부터 받은 응답을 반환합니다.
       return response.data;
     } catch (error) {
-      // 로그인에 실패하면 에러를 throw 합니다.
       throw error;
     }
   },
@@ -23,11 +21,76 @@ const AuthService = {
         email,
         password,
       });
-      console.log(response);
-      // 회원가입에 성공하면 서버로부터 받은 응답을 반환합니다.
       return response.data;
     } catch (error) {
-      // 서버로부터 받은 에러 객체를 그대로 throw 합니다.
+      throw error;
+    }
+  },
+  logout: async () => {
+    try {
+      const response = await instance.post('/logout');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // 소셜 로그인 (카카오, 네이버, 구글)
+  // socialSignup: async () => {
+  //   const params = {
+  //     redirect_uri: 'https://localhost:3000/loginnext',
+  //     callback: 'login',
+  //   };
+  //   try {
+  //     const response = await instance.get('/oauth2/authorize/google', {
+  //       params,
+  //     });
+  //     const authURL = response.data;
+  //     window.location.href = authURL;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // },
+
+  socialSignup: async service => {
+    let serviceUri;
+    switch (service) {
+      case 'google':
+        serviceUri = '/oauth2/authorize/google';
+        break;
+      case 'naver':
+        serviceUri = '/oauth2/authorize/naver';
+        break;
+      case 'kakao':
+        serviceUri = '/oauth2/authorize/kakao';
+        break;
+      default:
+        throw new Error('지원하지 않는 서비스');
+    }
+
+    const params = {
+      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+      callback: 'login',
+    };
+
+    try {
+      const response = await instance.get(serviceUri, { params });
+      const authURL = response.data;
+      window.location.href = authURL;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  socialLogin: async user_state => {
+    try {
+      const response = await instance.get('/oauth2/authorize', {
+        params: {
+          user_state: user_state,
+        },
+      });
+      return response.data;
+    } catch (error) {
       throw error;
     }
   },

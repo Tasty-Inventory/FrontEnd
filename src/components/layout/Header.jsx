@@ -1,9 +1,10 @@
 import React from 'react';
 import letterLogoImg from '../../assets/images/logo_letter.png';
-import mockupProfile from '../../assets/images/mockup-profile.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuth } from '../../store/AuthContext';
+import { useAuthDispatch, useAuthState } from '../../utils/AuthContext';
+import AuthService from '../../apis/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
   height: 80px;
@@ -41,28 +42,51 @@ const LinkItem = styled(Link)`
   cursor: pointer;
 `;
 
-const ProfileWrap = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+const EmailSpan = styled.span`
+  font-size: 16px;
+  color: #4f4e4e;
+  font-weight: 600;
 `;
 
-const ProfileImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
+const LogoutBtn = styled.button`
+  all: unset;
+  font-size: 16px;
+  background: #4f4e4e;
+  border-radius: 8px;
+  color: #fff;
+  padding: 8px 10px;
+  margin: 0 0 0 10px;
   cursor: pointer;
 `;
 
+const LogoImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 function Header() {
-  const { isLoggedIn, logout } = useAuth();
+  const { isAuthenticated, username } = useAuthState();
+  const dispatch = useAuthDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      const response = await AuthService.logout();
+      dispatch({ type: 'LOGOUT' });
+
+      alert(response.message);
+      navigate('/login');
+    } catch (error) {
+      console.error('로그아웃 실패');
+    }
+  };
+
   return (
     <HeaderContainer>
       <Container>
         <LeftContainer>
           <Link to="/">
-            <img src={letterLogoImg} alt="로고" />
+            <LogoImage src={letterLogoImg} alt="로고" />
           </Link>
         </LeftContainer>
         <div>
@@ -79,15 +103,15 @@ function Header() {
             <li>
               <LinkItem to="/settings">Settings</LinkItem>
             </li>
-            <ProfileWrap>
-              {isLoggedIn ? (
-                <button onClick={logout}>로그아웃</button>
-              ) : (
-                <LinkItem to="/login">
-                  <ProfileImg src={mockupProfile} alt="임시프로필이미지" />
-                </LinkItem>
-              )}
-            </ProfileWrap>
+            {isAuthenticated ? (
+              <li>
+                {' '}
+                <EmailSpan>{username}</EmailSpan>
+                <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
+              </li>
+            ) : (
+              <LinkItem to="/login">Login</LinkItem>
+            )}
           </NavList>
         </div>
       </Container>

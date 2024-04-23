@@ -5,10 +5,13 @@ import Cookies from 'js-cookie';
 import App from './App';
 
 axios
-  .get(`${process.env.REACT_APP_SERVER_URL}csrf-token`)
+  .get(`${process.env.REACT_APP_SERVER_URL}csrf-token`, {
+    withCredentials: true,
+  })
   .then(response => {
     const csrfToken = response.data['CSRF-TOKEN'];
-    Cookies.set('CSRF-TOKEN', csrfToken, { expires: 1 }); // 쿠키에 CSRF 토큰 저장
+    // console.log(csrfToken);
+    Cookies.set('X-CSRF-TOKEN', csrfToken); // 쿠키에 CSRF 토큰 저장
   })
   .catch(error => {
     console.error('Error fetching CSRF token:', error);
