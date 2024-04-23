@@ -13,7 +13,8 @@ export default function LoginNext() {
     try {
       const response = await AuthService.socialLogin(userState);
       alert(response.message);
-      const { email } = response;
+      const { email } = response.data;
+      console.log(email);
       dispatch({ type: 'LOGIN', payload: { username: email } });
       navigate('/');
     } catch (error) {
