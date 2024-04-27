@@ -2,14 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import useAllMenuService from '../../apis/AllMenuService';
 import instance from '../../apis/axios';
-import MenuModal from '../../components/modal/MenuModal';
 import * as M from '../../styles/Menu';
 import { Link } from 'react-router-dom';
 
 export default function MenuList() {
   const { menus, loading, error } = useAllMenuService();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴의 상세 정보를 저장할 상태
 
   if (loading) return <div>loading...</div>;
   // if (error) return <div>Error: {error}</div>;
@@ -20,8 +17,6 @@ export default function MenuList() {
       const data = await response.json();
 
       if (data.code === 200) {
-        setSelectedMenu(data.data); // 상태 업데이트
-        setIsModalOpen(true); // 모달 열기
       } else {
         throw new Error(data.message);
       }
@@ -54,6 +49,8 @@ export default function MenuList() {
         </M.MenuLayout>
       </M.MenuWrap>
 
+      {/* 메뉴/재고 컴포넌트 */}
+
       <ul>
         {menus.map(menu => (
           <li
@@ -65,9 +62,6 @@ export default function MenuList() {
           </li>
         ))}
       </ul>
-      {isModalOpen && selectedMenu && (
-        <MenuModal menu={selectedMenu} onClose={() => setIsModalOpen(false)} />
-      )}
       {error && <div> Error : {error} </div>}
     </M.MenuContainer>
   );
