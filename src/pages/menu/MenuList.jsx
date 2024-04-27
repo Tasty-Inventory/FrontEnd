@@ -3,6 +3,8 @@ import { useState } from 'react';
 import useAllMenuService from '../../apis/AllMenuService';
 import instance from '../../apis/axios';
 import MenuModal from '../../components/modal/MenuModal';
+import * as M from '../../styles/Menu';
+import { Link } from 'react-router-dom';
 
 export default function MenuList() {
   const { menus, loading, error } = useAllMenuService();
@@ -29,20 +31,28 @@ export default function MenuList() {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Menu List</h1>
-        <ul>
-          <li>
-            <input type="radio" name="menubar" id="menu" />
-            <label for="menu">메뉴 조회</label>
-          </li>
-          <li>
-            <input type="radio" name="menubar" id="inventory" />
-            <label for="inventory">재고 조회</label>
-          </li>
-        </ul>
-      </div>
+    <M.MenuContainer>
+      <M.MenuWrap>
+        <M.MenuTitle>Menu List</M.MenuTitle>
+        <M.MenuLayout>
+          {/* 메뉴 조회, 재고 조회 */}
+          <M.FlexLayout>
+            <li>
+              <M.SelectRadio type="radio" name="menubar" id="menu" checked />
+              <M.MenuName for="menu">메뉴 조회</M.MenuName>
+            </li>
+            <li>
+              <M.SelectRadio type="radio" name="menubar" id="inventory" />
+              <M.MenuName for="inventory">재고 조회</M.MenuName>
+            </li>
+          </M.FlexLayout>
+          {/* 새 메뉴 버튼, 새 재고 버튼 */}
+          <M.FlexLayout>
+            <M.AddButton type="button">새 메뉴 추가</M.AddButton>
+            <M.AddButton type="button">새 재고 추가</M.AddButton>
+          </M.FlexLayout>
+        </M.MenuLayout>
+      </M.MenuWrap>
 
       <ul>
         {menus.map(menu => (
@@ -59,6 +69,6 @@ export default function MenuList() {
         <MenuModal menu={selectedMenu} onClose={() => setIsModalOpen(false)} />
       )}
       {error && <div> Error : {error} </div>}
-    </div>
+    </M.MenuContainer>
   );
 }
