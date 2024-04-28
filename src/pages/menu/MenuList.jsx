@@ -1,20 +1,28 @@
 // MenuList.jsx
 import React from 'react';
-import { useState, useEffect } from 'react';
-import instance from '../../apis/axios';
+import { useState } from 'react';
 import * as M from '../../styles/Menu';
 import { Link } from 'react-router-dom';
 import { MenuForm } from '../../components/menu/MenuForm';
 import useFetchMenus from '../../apis/AllMenuService';
+import { useNavigate } from 'react-router-dom';
 
 export default function MenuList() {
   // 선택된 옵션을 관리하는 상태
   const [selectedOption, setSelectedOption] = useState('menu');
   const { data, loading, error } = useFetchMenus(selectedOption);
-
+  const navigate = useNavigate();
   // 라디오 버튼 변경 시 호출될 핸들러
   const handleOptionChange = e => {
     setSelectedOption(e.target.value);
+  };
+
+  const navigateToAddMenu = () => {
+    navigate('/addmenu');
+  };
+
+  const navigateToAddInventory = () => {
+    navigate('/addinventory');
   };
 
   return (
@@ -50,8 +58,12 @@ export default function MenuList() {
             </M.FlexLayout>
             {/* 새 메뉴 버튼, 새 재고 버튼 */}
             <M.FlexLayout>
-              <M.AddButton type="button">새 메뉴 추가</M.AddButton>
-              <M.AddButton type="button">새 재고 추가</M.AddButton>
+              <M.AddButton type="button" onClick={navigateToAddMenu}>
+                새 메뉴 추가
+              </M.AddButton>
+              <M.AddButton type="button" onClick={navigateToAddInventory}>
+                새 재고 추가
+              </M.AddButton>
             </M.FlexLayout>
           </M.MenuLayout>
         </M.MenuWrap>

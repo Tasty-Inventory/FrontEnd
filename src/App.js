@@ -12,6 +12,8 @@ import FindPw from './pages/user/FindPw';
 import Signup from './pages/user/Signup';
 import { AuthProvider } from './utils/AuthContext';
 import Header from './components/layout/Header';
+import AddMenu from './pages/menu/AddMenu';
+import AddInventory from './pages/menu/AddInventory';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
             <Route path="/findid" element={<FindId />} />
             <Route path="/findpw" element={<FindPw />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/addmenu" element={<AddMenu />} />
+            <Route path="/addinventory" element={<AddInventory />} />
           </Routes>
         </div>
       </BrowserRouter>
