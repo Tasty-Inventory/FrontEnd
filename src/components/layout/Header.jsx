@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 const HeaderContainer = styled.header`
   height: 80px;
   background: #fff;
-  box-shadow: 0px 1px 30px 0px rgba(123, 122, 122, 0.25);
 `;
 
 const Container = styled.div`
