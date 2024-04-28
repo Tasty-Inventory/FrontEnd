@@ -70,7 +70,7 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
       </M.FlexDiv>
 
       <M.FlexDiv direction="column" gap="10px">
-        <M.InputLabel htmlFor="image">재고 사진</M.InputLabel>
+        <M.InputLabel>재고 사진</M.InputLabel>
         <input type="file" id="image" name="image" onChange={handleChange} />
       </M.FlexDiv>
 
