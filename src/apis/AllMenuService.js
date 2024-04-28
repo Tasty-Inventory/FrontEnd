@@ -2,16 +2,22 @@
 import { useState, useEffect } from 'react';
 import instance from './axios';
 
-function useAllMenuService() {
-  const [menus, setMenus] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+const useFetchMenus = selectedOption => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchAllMenus = async () => {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await instance.get('/menu');
-        setMenus(response.data.data);
+        let response;
+        if (selectedOption === 'menu') {
+          response = await instance.get('/menu');
+        } else if (selectedOption === 'inventory') {
+          response = await instance.get('/inventory');
+        }
+        setData(response.data.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -19,10 +25,10 @@ function useAllMenuService() {
       }
     };
 
-    fetchAllMenus();
-  }, []);
+    fetchData();
+  }, [selectedOption]);
 
-  return { menus, loading, error };
-}
+  return { data, loading, error };
+};
 
-export default useAllMenuService;
+export default useFetchMenus;
