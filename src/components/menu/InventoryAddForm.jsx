@@ -1,5 +1,7 @@
 // InventoryAddMenu.jsx
 import React, { useEffect, useState } from 'react';
+import * as M from '../../styles/Menu';
+import { useNavigate } from 'react-router-dom';
 
 function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
   const [inventoryData, setInventoryData] = useState({
@@ -7,6 +9,7 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
     unit: '',
     image: null,
   });
+  const navigate = useNavigate();
 
   // 수정 모드일 때 초기 데이터로 폼을 채움.
   useEffect(() => {
@@ -36,29 +39,54 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
     onSubmit(data);
   };
 
+  const navigateToMenuList = () => {
+    navigate('/menulist');
+  };
+
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <input
-        type="text"
-        name="name"
-        value={inventoryData.name}
-        onChange={handleChange}
-        placeholder="재고 이름"
-      />
-      <input
-        type="text"
-        name="unit"
-        value={inventoryData.unit}
-        onChange={handleChange}
-        placeholder="재고 단위"
-      />
-      <div>
-        <label htmlFor="image">사진:</label>
+    <M.AddForm onSubmit={handleSubmit} encType="multipart/form-data">
+      <M.FlexDiv direction="column" gap="10px">
+        <M.InputLabel htmlFor="name">재고 이름</M.InputLabel>
+        <M.InputWrap>
+          <M.FormInput
+            type="text"
+            name="name"
+            value={inventoryData.name}
+            onChange={handleChange}
+          />
+        </M.InputWrap>
+      </M.FlexDiv>
+
+      <M.FlexDiv direction="column" gap="10px">
+        <M.InputLabel htmlFor="unit">재고 단위</M.InputLabel>
+        <M.InputWrap>
+          <M.FormInput
+            type="text"
+            name="unit"
+            value={inventoryData.unit}
+            onChange={handleChange}
+          />
+        </M.InputWrap>
+      </M.FlexDiv>
+
+      <M.FlexDiv direction="column" gap="10px">
+        <M.InputLabel htmlFor="image">재고 사진</M.InputLabel>
         <input type="file" id="image" name="image" onChange={handleChange} />
-      </div>
-      {/* 필요한 다른 입력 필드를 추가할 수 있습니다. */}
-      <button type="submit">{mode === 'add' ? '추가' : '수정'}</button>
-    </form>
+      </M.FlexDiv>
+
+      <M.FlexDiv direction="row" gap="30px" justify="center">
+        <M.SubmitButton
+          type="button"
+          border="0.5px solid #7B7A7A"
+          onClick={navigateToMenuList}
+        >
+          취소
+        </M.SubmitButton>
+        <M.SubmitButton type="submit" back="#fea7a7" color="#fff">
+          {mode === 'add' ? '추가' : '수정'}
+        </M.SubmitButton>
+      </M.FlexDiv>
+    </M.AddForm>
   );
 }
 

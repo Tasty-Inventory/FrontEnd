@@ -115,3 +115,80 @@ export const MenuBodyContainer = styled.div`
   background: #f7f7f7;
   padding: 10px 0;
 `;
+
+export const AddPageContainer = styled.div`
+  width: 390px;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+export const AddPageHeadline = styled.h1`
+  color: #232121;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+`;
+
+export const AddForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+export const FlexDiv = styled.div`
+  display: flex;
+  flex-direction: ${props => props.direction || 'row'};
+  gap: ${props => props.gap || '0px'};
+  align-items: ${props => props.align || 'normal'};
+  justify-content: ${props => props.justify || 'flex-start'};
+`;
+
+export const InputLabel = styled.label`
+  color: #7b7a7a;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const FormInput = styled.input`
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+`;
+
+export const InputWrap = styled.div`
+  width: 100%;
+  height: 50px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #e4e1e1;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const SubmitButton = styled.button`
+  width: 80px;
+  height: 30px;
+  border-radius: 15px;
+  background: ${props => props.back || '#fff'};
+
+  color: ${props => props.color || '#7B7A7A'};
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  border: ${props => props.border || 'none'};
+  cursor: pointer;
+`;

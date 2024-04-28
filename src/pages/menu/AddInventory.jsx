@@ -2,6 +2,7 @@
 
 import React from 'react';
 import InventoryAddForm from '../../components/menu/InventoryAddForm';
+import * as M from '../../styles/Menu';
 
 export default function AddInventory() {
   const handleSubmit = data => {
@@ -29,9 +30,9 @@ export default function AddInventory() {
   };
 
   return (
-    <div>
-      <h1>메뉴 추가</h1>
+    <M.AddPageContainer>
+      <M.AddPageHeadline>새 재고 추가하기</M.AddPageHeadline>
       <InventoryAddForm mode="add" onSubmit={handleSubmit} />
-    </div>
+    </M.AddPageContainer>
   );
 }
