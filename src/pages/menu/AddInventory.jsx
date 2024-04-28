@@ -20,7 +20,7 @@ export default function AddInventory() {
     })
       .then(response => response.json())
       .then(result => {
-        console.log('Success:', result);
+        // console.log('Success:', result);
         // 성공 처리 로직
       })
       .catch(error => {
