@@ -113,5 +113,5 @@ export const MenuContentCategory = styled.span`
 export const MenuBodyContainer = styled.div`
   width: 100%;
   background: #f7f7f7;
-  padding: 10px;
+  padding: 10px 0;
 `;
