@@ -192,3 +192,43 @@ export const SubmitButton = styled.button`
   border: ${props => props.border || 'none'};
   cursor: pointer;
 `;
+
+export const OpenButton = styled.button`
+  width: 100px;
+  height: 30px;
+  border-radius: 15px;
+  background: #d3d3d3;
+  border: none;
+  color: #232121;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  cursor: pointer;
+`;
+
+export const Table = styled.table`
+  width: 100%;
+
+  & th {
+    vertical-align: middle;
+    color: #232121;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  & > thead {
+    background: #d3d3d3;
+    height: 50px;
+  }
+  & td {
+    height: 50px;
+    vertical-align: middle;
+    color: #232121;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+  }
+`;
