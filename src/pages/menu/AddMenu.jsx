@@ -8,10 +8,15 @@ export default function AddMenu() {
   const handleSubmit = data => {
     const formData = new FormData();
 
-    // 폼 데이터를 FormData 객체에 추가
-    formData.append('name', data.name);
-    formData.append('description', data.description);
-    formData.append('image', data.image); // File 객체
+    // 'name'과 'description'을 JSON 형태
+    const info = JSON.stringify({
+      name: data.name,
+      description: data.description,
+    });
+    formData.append('info', info);
+
+    // 'image'는 File 객체로 'image' 필드에 추가
+    formData.append('image', data.image);
 
     // fetch API를 사용하여 서버에 폼 데이터 전송
     fetch('/menu', {
@@ -20,7 +25,6 @@ export default function AddMenu() {
     })
       .then(response => response.json())
       .then(result => {
-        // console.log('Success:', result);
         // 성공 처리 로직
       })
       .catch(error => {
