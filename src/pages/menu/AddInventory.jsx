@@ -3,34 +3,31 @@
 import React from 'react';
 import InventoryAddForm from '../../components/menu/InventoryAddForm';
 import * as M from '../../styles/Menu';
+import instance from '../../apis/axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddInventory() {
-  const handleSubmit = data => {
-    const formData = new FormData();
-
-    // 'name'과 'description'을 JSON 형태
-    const info = JSON.stringify({
-      name: data.name,
-      description: data.description,
-    });
-    formData.append('info', info);
-
-    // 'image'는 File 객체로 'image' 필드에 추가
-    formData.append('image', data.image);
-
-    // fetch API를 사용하여 서버에 폼 데이터 전송
-    fetch('/inventory', {
-      method: 'POST', // 또는 'PUT'
-      body: formData,
-    })
-      .then(response => response.json())
-      .then(result => {
-        // 성공 처리 로직
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // 오류 처리 로직
-      });
+  const navigate = useNavigate();
+  const handleSubmit = async formData => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const response = await instance.post('/inventory', formData, config);
+      const result = response.data;
+      // 성공 처리 로직
+      // console.log('Success:', result);
+      navigate('/menulist');
+      alert('재고를 추가하였습니다.');
+    } catch (error) {
+      console.error('Error:', error);
+      // console.log('FormData content:');
+      // for (let pair of formData.entries()) {
+      //   console.log(`${pair[0]}: ${pair[1]}`);
+      // }
+    }
   };
 
   return (

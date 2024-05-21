@@ -11,13 +11,6 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
   });
   const navigate = useNavigate();
 
-  // 수정 모드일 때 초기 데이터로 폼을 채움.
-  useEffect(() => {
-    if (mode === 'edit' && initialData) {
-      setInventoryData(initialData);
-    }
-  }, [mode, initialData]);
-
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === 'image') {
@@ -31,9 +24,9 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
     e.preventDefault();
 
     const data = new FormData();
-    Object.keys(inventoryData).forEach(key => {
-      data.append(key, inventoryData[key]);
-    });
+    data.append('inventoryName', inventoryData.name);
+    data.append('inventoryUnit', inventoryData.unit);
+    data.append('inventoryImage', inventoryData.image);
 
     // onSubmit prop을 통해 부모 컴포넌트에 데이터 전달
     onSubmit(data);
@@ -70,7 +63,7 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
       </M.FlexDiv>
 
       <M.FlexDiv direction="column" gap="10px">
-        <M.InputLabel>재고 사진</M.InputLabel>
+        <M.InputLabel htmlFor="image">재고 사진</M.InputLabel>
         <input type="file" id="image" name="image" onChange={handleChange} />
       </M.FlexDiv>
 
