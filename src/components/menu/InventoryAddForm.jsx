@@ -1,24 +1,27 @@
 // InventoryAddMenu.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as M from '../../styles/Menu';
 import { useNavigate } from 'react-router-dom';
+import instance from '../../apis/axios';
 
-function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
+function InventoryAddForm({ mode, onSubmit, initialData = {}, inventoryId }) {
   const [inventoryData, setInventoryData] = useState({
     name: '',
     unit: '',
     image: null,
   });
-  const navigate = useNavigate();
 
-  const handleChange = e => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
-      setInventoryData({ ...inventoryData, [name]: files[0] });
-    } else {
-      setInventoryData({ ...inventoryData, [name]: value });
+  useEffect(() => {
+    if (initialData) {
+      setInventoryData({
+        name: initialData.inventoryName || '',
+        unit: initialData.inventoryUnit || '',
+        image: null,
+      });
     }
-  };
+  }, [initialData]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -28,7 +31,30 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
     data.append('inventoryUnit', inventoryData.unit);
     data.append('inventoryImage', inventoryData.image);
 
-    onSubmit(data);
+    onSubmit(data, mode);
+  };
+  const handleChange = e => {
+    const { name, value, files } = e.target;
+    if (name === 'image') {
+      setInventoryData({ ...inventoryData, [name]: files[0] });
+    } else {
+      setInventoryData({ ...inventoryData, [name]: value });
+    }
+  };
+
+  const handleDelete = () => {
+    console.log(inventoryId);
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      instance
+        .delete(`/inventory/${inventoryId}`)
+        .then(response => {
+          console.log(response.data);
+          navigate('/menulist');
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   const navigateToMenuList = () => {
@@ -74,6 +100,17 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
         >
           취소
         </M.SubmitButton>
+        {mode === 'edit' && (
+          <M.SubmitButton
+            type="submit"
+            back="#fea7a7"
+            color="#fff"
+            onClick={handleDelete}
+          >
+            삭제
+          </M.SubmitButton>
+        )}
+
         <M.SubmitButton type="submit" back="#fea7a7" color="#fff">
           {mode === 'add' ? '추가' : '수정'}
         </M.SubmitButton>
