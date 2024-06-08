@@ -1,5 +1,5 @@
 // InventoryAddMenu.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as M from '../../styles/Menu';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,6 @@ function InventoryAddForm({ mode, onSubmit, initialData = {} }) {
     data.append('inventoryUnit', inventoryData.unit);
     data.append('inventoryImage', inventoryData.image);
 
-    // onSubmit prop을 통해 부모 컴포넌트에 데이터 전달
     onSubmit(data);
   };
 

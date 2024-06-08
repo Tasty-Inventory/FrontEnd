@@ -9,7 +9,7 @@ export default function MenuList() {
   const [selectedOption, setSelectedOption] = useState('menu');
   const { data, loading, error } = useFetchMenus(selectedOption);
   const navigate = useNavigate();
-  // 라디오 버튼 변경 시 호출될 핸들러
+
   const handleOptionChange = e => {
     setSelectedOption(e.target.value);
   };
@@ -20,6 +20,14 @@ export default function MenuList() {
 
   const navigateToAddInventory = () => {
     navigate('/addinventory');
+  };
+
+  const handleMenuContentClick = id => {
+    if (selectedOption === 'menu') {
+      console.log('구현 예정');
+    } else if (selectedOption === 'inventory') {
+      navigate(`/inventory/${id}`);
+    }
   };
 
   return (
@@ -84,7 +92,10 @@ export default function MenuList() {
 
           {selectedOption === 'inventory' &&
             data.map(item => (
-              <M.MenuContent key={item.inventoryId}>
+              <M.MenuContent
+                key={item.inventoryId}
+                onClick={() => handleMenuContentClick(item.inventoryId)}
+              >
                 <M.ImgWrap>
                   <M.Img src={item.inventoryImage} alt={item.inventoryName} />
                 </M.ImgWrap>

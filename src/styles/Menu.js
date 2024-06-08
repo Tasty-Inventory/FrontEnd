@@ -79,6 +79,7 @@ export const MenuContent = styled.div`
   border-radius: 10px;
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
 `;
 
 export const ImgWrap = styled.div`

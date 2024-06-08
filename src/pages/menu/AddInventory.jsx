@@ -17,16 +17,10 @@ export default function AddInventory() {
       };
       const response = await instance.post('/inventory', formData, config);
       const result = response.data;
-      // 성공 처리 로직
-      // console.log('Success:', result);
       navigate('/menulist');
       alert('재고를 추가하였습니다.');
     } catch (error) {
       console.error('Error:', error);
-      // console.log('FormData content:');
-      // for (let pair of formData.entries()) {
-      //   console.log(`${pair[0]}: ${pair[1]}`);
-      // }
     }
   };
 
