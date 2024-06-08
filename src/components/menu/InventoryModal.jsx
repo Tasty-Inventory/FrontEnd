@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import instance from '../../apis/axios';
+import React from 'react';
+import * as M from '../../styles/Menu';
 
 function InventoryModal({ inventoryList, onInventorySelect, onClose }) {
   return (
-    <div onClick={onClose}>
-      <div onClick={e => e.stopPropagation()}>
-        <div>
-          <h2>재고 선택</h2>
-          <button onClick={onClose}>닫기</button>
-        </div>
-        <table>
+    <M.ModalContainer>
+      <M.ModalDiv onClick={e => e.stopPropagation()}>
+        <M.ModalTitle>재고 선택</M.ModalTitle>
+        <M.Table>
           <thead>
             <tr>
               <th>재고명</th>
@@ -32,9 +29,14 @@ function InventoryModal({ inventoryList, onInventorySelect, onClose }) {
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
-    </div>
+        </M.Table>
+        <div>
+          <M.SubmitButton border="0.5px solid #7B7A7A" onClick={onClose}>
+            닫기
+          </M.SubmitButton>
+        </div>
+      </M.ModalDiv>
+    </M.ModalContainer>
   );
 }
 

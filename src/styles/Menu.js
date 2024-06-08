@@ -123,6 +123,7 @@ export const AddPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  position: relative;
 `;
 
 export const AddPageHeadline = styled.h1`
@@ -239,4 +240,38 @@ export const ErrorMessage = styled.h1`
   font-weight: 600;
   padding: 20px 0;
   text-align: center;
+`;
+
+export const ModalContainer = styled.div`
+  width: 650px;
+  min-height: 500px;
+  background: #fff;
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  text-align: center;
+`;
+
+export const ModalTitle = styled.h2`
+  color: #000;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 30px 0;
+`;
+
+export const ModalDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 `;
