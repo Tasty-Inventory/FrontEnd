@@ -2,28 +2,53 @@
 import React, { useEffect, useState } from 'react';
 import * as M from '../../styles/Menu';
 import { useNavigate } from 'react-router-dom';
+import instance from '../../apis/axios';
+import InventoryModal from './InventoryModal';
 
 function MenuAddForm({ mode, onSubmit, initialData = {} }) {
-  const [selectedInventories, setSelectedInventories] = useState([]);
   // 모달 검색
   const [showModal, setShowModal] = useState(false);
   const [menuData, setMenuData] = useState({
     name: '',
     image: null,
   });
+  const [inventoryList, setInventoryList] = useState([]); // 재고 목록 상태
+  const [selectedInventories, setSelectedInventories] = useState([]); // 선택한 재고 상태
   const navigate = useNavigate();
 
-  // 수정 모드일 때 초기 데이터로 폼을 채움.
   useEffect(() => {
     if (mode === 'edit' && initialData) {
       setMenuData(initialData);
     }
   }, [mode, initialData]);
 
+  useEffect(() => {
+    instance
+      .get('/inventory')
+      .then(response => {
+        setInventoryList(response.data.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
   // 재고 검색 모달에서 재고를 선택했을 때 호출되는 함수
   const handleInventorySelect = inventory => {
-    setSelectedInventories(prev => [...prev, inventory]);
-    setShowModal(false); // 모달 닫기
+    const isDuplicate = selectedInventories.some(
+      item => item.inventoryId === inventory.inventoryId,
+    );
+
+    if (!isDuplicate) {
+      setSelectedInventories(prevState => [...prevState, inventory]);
+    }
+  };
+
+  const handleDeleteInventory = inventoryId => {
+    const updatedSelectedInventories = selectedInventories.filter(
+      inventory => inventory.inventoryId !== inventoryId,
+    );
+    setSelectedInventories(updatedSelectedInventories);
   };
 
   const handleChange = e => {
@@ -62,6 +87,14 @@ function MenuAddForm({ mode, onSubmit, initialData = {} }) {
 
   return (
     <M.AddForm onSubmit={handleSubmit} encType="multipart/form-data">
+      {showModal && (
+        <InventoryModal
+          inventoryList={inventoryList}
+          onInventorySelect={handleInventorySelect}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+
       <M.FlexDiv direction="column" gap="10px">
         <M.InputLabel htmlFor="name">메뉴 이름</M.InputLabel>
         <M.InputWrap>
@@ -76,7 +109,9 @@ function MenuAddForm({ mode, onSubmit, initialData = {} }) {
 
       <M.FlexDiv direction="column" gap="20px">
         <M.InputLabel>연관 재고</M.InputLabel>
-        <M.OpenButton type="button">재고 추가</M.OpenButton>
+        <M.OpenButton type="button" onClick={() => setShowModal(true)}>
+          재고 추가
+        </M.OpenButton>
         <M.Table>
           <thead>
             <tr>
@@ -87,14 +122,21 @@ function MenuAddForm({ mode, onSubmit, initialData = {} }) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>감자</td>
-              <td>1</td>
-              <td>g</td>
-              <td>
-                <button type="button">삭제</button>
-              </td>
-            </tr>
+            {selectedInventories.map(inventory => (
+              <tr key={inventory.inventoryId}>
+                <td>{inventory.inventoryName}</td>
+                <td>데이터없음</td>
+                <td>{inventory.inventoryUnit}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteInventory(inventory.inventoryId)}
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </M.Table>
       </M.FlexDiv>

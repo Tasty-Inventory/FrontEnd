@@ -15,21 +15,15 @@ export default function AddMenu() {
     });
     formData.append('info', info);
 
-    // 'image'는 File 객체로 'image' 필드에 추가
     formData.append('image', data.image);
 
-    // fetch API를 사용하여 서버에 폼 데이터 전송
     fetch('/menu', {
       method: 'POST', // 또는 'PUT'
       body: formData,
     })
       .then(response => response.json())
-      .then(result => {
-        // 성공 처리 로직
-      })
       .catch(error => {
         console.error('Error:', error);
-        // 오류 처리 로직
       });
   };
 
