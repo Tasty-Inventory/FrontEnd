@@ -64,7 +64,7 @@ export const MenuBodyWrap = styled.div`
   width: 996px;
   margin: 20px auto;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 20px;
 `;
 
@@ -73,7 +73,7 @@ export const MenuContent = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: 234px;
+  width: 214px;
   height: auto;
   padding: 10px;
   border-radius: 10px;
@@ -231,4 +231,11 @@ export const Table = styled.table`
     font-weight: 500;
     text-align: center;
   }
+`;
+
+export const ErrorMessage = styled.h1`
+  font-size: 18px;
+  font-weight: 600;
+  padding: 20px 0;
+  text-align: center;
 `;

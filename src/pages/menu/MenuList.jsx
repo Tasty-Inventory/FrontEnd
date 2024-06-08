@@ -2,13 +2,10 @@
 import React from 'react';
 import { useState } from 'react';
 import * as M from '../../styles/Menu';
-import { Link } from 'react-router-dom';
-import { MenuForm } from '../../components/menu/MenuForm';
 import useFetchMenus from '../../apis/AllMenuService';
 import { useNavigate } from 'react-router-dom';
 
 export default function MenuList() {
-  // 선택된 옵션을 관리하는 상태
   const [selectedOption, setSelectedOption] = useState('menu');
   const { data, loading, error } = useFetchMenus(selectedOption);
   const navigate = useNavigate();
@@ -69,31 +66,39 @@ export default function MenuList() {
         </M.MenuWrap>
       </M.MenuContainer>
 
-      {selectedOption === 'menu' && (
-        <M.MenuBodyContainer>
-          <M.MenuBodyWrap>
-            <MenuForm name="간장계란볶음밥" />
-          </M.MenuBodyWrap>
-        </M.MenuBodyContainer>
-      )}
-
-      {selectedOption === 'inventory' && (
-        <M.MenuBodyContainer>
-          <M.MenuBodyWrap>
-            <MenuForm name="채소" />
-          </M.MenuBodyWrap>
-        </M.MenuBodyContainer>
-      )}
-
-      {/* <M.MenuBodyContainer>
+      <M.MenuBodyContainer>
         <M.MenuBodyWrap>
-          {data.map(item => (
-            <MenuForm key={item.id} name={item.name} image={item.image} />
-          ))}
-        </M.MenuBodyWrap>
-      </M.MenuBodyContainer> */}
+          {!error &&
+            selectedOption === 'menu' &&
+            data.map(item => (
+              <M.MenuContent key={item.inventoryId}>
+                <M.ImgWrap>
+                  <M.Img src={item.inventoryImage} alt={item.inventoryName} />
+                </M.ImgWrap>
+                <M.MenuContentTitle>{item.inventoryName}</M.MenuContentTitle>
+                <M.MenuContentCategory>
+                  {item.inventoryUnit}
+                </M.MenuContentCategory>
+              </M.MenuContent>
+            ))}
 
-      {error && <div> Error : {error} </div>}
+          {selectedOption === 'inventory' &&
+            data.map(item => (
+              <M.MenuContent key={item.inventoryId}>
+                <M.ImgWrap>
+                  <M.Img src={item.inventoryImage} alt={item.inventoryName} />
+                </M.ImgWrap>
+                <M.MenuContentTitle>{item.inventoryName}</M.MenuContentTitle>
+                <M.MenuContentCategory>
+                  {item.inventoryUnit}
+                </M.MenuContentCategory>
+              </M.MenuContent>
+            ))}
+        </M.MenuBodyWrap>
+        {error && (
+          <M.ErrorMessage> 조회할 재고 또는 메뉴가 없습니다.</M.ErrorMessage>
+        )}
+      </M.MenuBodyContainer>
     </div>
   );
 }
