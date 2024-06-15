@@ -1,18 +1,25 @@
+// MenuEditForm.jsx
 import React, { useEffect, useState } from 'react';
 import * as M from '../../styles/Menu';
 import { useNavigate } from 'react-router-dom';
 import instance from '../../apis/axios';
 import InventoryModal from './InventoryModal';
 
-function MenuAddForm({ onSubmit }) {
+function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
   const [showModal, setShowModal] = useState(false);
   const [menuData, setMenuData] = useState({
     name: '',
     image: null,
   });
-  const [inventoryList, setInventoryList] = useState([]);
-  const [selectedInventories, setSelectedInventories] = useState([]);
+  const [inventoryList, setInventoryList] = useState([]); // 재고 목록 상태
+  const [selectedInventories, setSelectedInventories] = useState([]); // 선택한 재고 상태
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (initialData) {
+      setMenuData(initialData);
+    }
+  }, [initialData]);
 
   useEffect(() => {
     instance
@@ -25,6 +32,7 @@ function MenuAddForm({ onSubmit }) {
       });
   }, []);
 
+  // 재고 검색 모달에서 재고를 선택했을 때 호출되는 함수
   const handleInventorySelect = inventory => {
     const isDuplicate = selectedInventories.some(
       item => item.inventoryId === inventory.inventoryId,
@@ -51,35 +59,34 @@ function MenuAddForm({ onSubmit }) {
     }
   };
 
-  const handleSubmit = async e => {
+  const handleDelete = async () => {
+    try {
+      await onDelete(menuId);
+      navigate('/menulist');
+    } catch (error) {
+      console.error('Failed to delete:', error);
+    }
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
 
     const formData = new FormData();
-
-    // 이미지 추가
+    formData.append('name', menuData.name);
     formData.append('image', menuData.image);
+    selectedInventories.forEach((inv, index) => {
+      formData.append(
+        `relatedInventory[${index}][inventoryId]`,
+        inv.inventoryId,
+      );
+      formData.append(
+        `relatedInventory[${index}][inventoryUsage]`,
+        inv.inventoryUsage,
+      );
+    });
 
-    // 데이터 객체 생성
-    const data = {
-      name: menuData.name,
-      relatedInventories: selectedInventories.map((inv, index) => ({
-        inventoryId: inv.inventoryId,
-        inventoryUsage: inv.inventoryUsage,
-      })),
-    };
-
-    formData.append('data', JSON.stringify(data));
-
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-
-    try {
-      await onSubmit(formData);
-      navigate('/menulist');
-    } catch (error) {
-      console.error('Failed to submit:', error);
-    }
+    // onSubmit prop을 통해 부모 컴포넌트에 데이터 전달
+    onSubmit(formData);
   };
 
   const navigateToMenuList = () => {
@@ -102,7 +109,7 @@ function MenuAddForm({ onSubmit }) {
           <M.FormInput
             type="text"
             name="name"
-            value={menuData.name}
+            value={menuData.menuName}
             onChange={handleChange}
           />
         </M.InputWrap>
@@ -126,7 +133,7 @@ function MenuAddForm({ onSubmit }) {
             {selectedInventories.map(inventory => (
               <tr key={inventory.inventoryId}>
                 <td>{inventory.inventoryName}</td>
-                <td>{inventory.inventoryUsage}</td>
+                <td>데이터없음</td>
                 <td>{inventory.inventoryUnit}</td>
                 <td>
                   <button
@@ -155,12 +162,20 @@ function MenuAddForm({ onSubmit }) {
         >
           취소
         </M.SubmitButton>
+        <M.SubmitButton
+          type="button"
+          back="#fea7a7"
+          color="#fff"
+          onClick={handleDelete}
+        >
+          삭제
+        </M.SubmitButton>
         <M.SubmitButton type="submit" back="#fea7a7" color="#fff">
-          추가
+          수정
         </M.SubmitButton>
       </M.FlexDiv>
     </M.AddForm>
   );
 }
 
-export default MenuAddForm;
+export default MenuEditForm;

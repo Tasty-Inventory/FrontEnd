@@ -1,30 +1,32 @@
-// AddMenu.jsx
-
 import React from 'react';
 import * as M from '../../styles/Menu';
 import MenuAddForm from '../../components/menu/MenuAddForm';
+import instance from '../../apis/axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddMenu() {
-  const handleSubmit = data => {
-    const formData = new FormData();
+  const navigate = useNavigate();
+  // const handleSubmit = formData => {
+  //   fetch('/menu', {
+  //     method: 'POST',
+  //     body: formData,
+  //   })
+  //     .then(response => response.json())
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // };
 
-    // 'name'과 'description'을 JSON 형태
-    const info = JSON.stringify({
-      name: data.name,
-      description: data.description,
-    });
-    formData.append('info', info);
-
-    formData.append('image', data.image);
-
-    fetch('/menu', {
-      method: 'POST', // 또는 'PUT'
-      body: formData,
-    })
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Error:', error);
-      });
+  const handleSubmit = async formData => {
+    try {
+      const response = await instance.post('/menu', formData);
+      const result = response.data;
+      console.log(result);
+      navigate('/menulist');
+      alert('재고를 추가하였습니다.');
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (

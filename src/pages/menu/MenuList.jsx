@@ -24,7 +24,7 @@ export default function MenuList() {
 
   const handleMenuContentClick = id => {
     if (selectedOption === 'menu') {
-      console.log('구현 예정');
+      navigate(`/menu/${id}`);
     } else if (selectedOption === 'inventory') {
       navigate(`/inventory/${id}`);
     }
@@ -79,18 +79,19 @@ export default function MenuList() {
           {!error &&
             selectedOption === 'menu' &&
             data.map(item => (
-              <M.MenuContent key={item.inventoryId}>
+              <M.MenuContent
+                key={item.menuId}
+                onClick={() => handleMenuContentClick(item.menuId)}
+              >
                 <M.ImgWrap>
-                  <M.Img src={item.inventoryImage} alt={item.inventoryName} />
+                  <M.Img src={item.menuImage} alt={item.menuName} />
                 </M.ImgWrap>
-                <M.MenuContentTitle>{item.inventoryName}</M.MenuContentTitle>
-                <M.MenuContentCategory>
-                  {item.inventoryUnit}
-                </M.MenuContentCategory>
+                <M.MenuContentTitle>{item.menuName}</M.MenuContentTitle>
               </M.MenuContent>
             ))}
 
-          {selectedOption === 'inventory' &&
+          {!error &&
+            selectedOption === 'inventory' &&
             data.map(item => (
               <M.MenuContent
                 key={item.inventoryId}

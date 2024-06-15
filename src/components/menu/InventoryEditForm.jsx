@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as M from '../../styles/Menu';
 import { useNavigate } from 'react-router-dom';
 
-function AddInventory({ onSubmit }) {
+function InventoryEditForm({ initialData, onSubmit, onDelete, inventoryId }) {
   const [inventoryData, setInventoryData] = useState({
     name: '',
     unit: '',
     image: null,
   });
+
+  useEffect(() => {
+    setInventoryData({
+      name: initialData.inventoryName || '',
+      unit: initialData.inventoryUnit || '',
+      image: null,
+    });
+  }, [initialData]);
 
   const navigate = useNavigate();
 
@@ -19,22 +27,23 @@ function AddInventory({ onSubmit }) {
     data.append('inventoryUnit', inventoryData.unit);
     data.append('inventoryImage', inventoryData.image);
 
-    await onSubmit(data, 'add');
+    await onSubmit(data, 'edit');
     navigate('/menulist');
+  };
+
+  const handleDelete = async () => {
+    try {
+      await onDelete(inventoryId);
+      navigate('/menulist');
+    } catch (error) {
+      console.error('Failed to delete:', error);
+    }
   };
 
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === 'image') {
-      const file = files[0];
-      if (file.size > 10485760) {
-        // 파일 크기가 클 경우 업로드 막음
-        alert(
-          '파일 크기가 너무 큽니다. 10MB 이하의 파일만 업로드할 수 있습니다.',
-        );
-        return;
-      }
-      setInventoryData({ ...inventoryData, [name]: file });
+      setInventoryData({ ...inventoryData, [name]: files[0] });
     } else {
       setInventoryData({ ...inventoryData, [name]: value });
     }
@@ -79,13 +88,21 @@ function AddInventory({ onSubmit }) {
         >
           취소
         </M.SubmitButton>
+        <M.SubmitButton
+          type="button"
+          back="#fea7a7"
+          color="#fff"
+          onClick={handleDelete}
+        >
+          삭제
+        </M.SubmitButton>
 
         <M.SubmitButton type="submit" back="#fea7a7" color="#fff">
-          추가
+          수정
         </M.SubmitButton>
       </M.FlexDiv>
     </M.AddForm>
   );
 }
 
-export default AddInventory;
+export default InventoryEditForm;

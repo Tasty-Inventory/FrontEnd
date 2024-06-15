@@ -22,7 +22,10 @@ function InventoryModal({ inventoryList, onInventorySelect, onClose }) {
                 <td>{inventory.inventoryUsage}</td>
                 <td>{inventory.inventoryUnit}</td>
                 <td>
-                  <button onClick={() => onInventorySelect(inventory)}>
+                  <button
+                    type="button"
+                    onClick={() => onInventorySelect(inventory)}
+                  >
                     선택
                   </button>
                 </td>

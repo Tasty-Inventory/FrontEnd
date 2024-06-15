@@ -14,7 +14,8 @@ import { AuthProvider } from './utils/AuthContext';
 import Header from './components/layout/Header';
 import AddMenu from './pages/menu/AddMenu';
 import AddInventory from './pages/menu/AddInventory';
-import InventoryEdit from './pages/menu/InventoryEdit';
+import InventoryDetail from './pages/menu/InventoryDetail';
+import MenuDetail from './pages/menu/MenuDetail';
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/inventory" element={<Inventory />} />
-            <Route path="/inventory/:id" element={<InventoryEdit />} />
+            <Route path="/inventory/:id" element={<InventoryDetail />} />
+            <Route path="/menu/:id" element={<MenuDetail />} />
             <Route path="/menulist" element={<MenuList />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/staff" element={<Staff />} />
