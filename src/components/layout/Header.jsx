@@ -7,8 +7,10 @@ import AuthService from '../../apis/AuthService';
 import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
+  width: 100%;
   height: 80px;
   background: #fff;
+  position: fixed;
 `;
 
 const Container = styled.div`
