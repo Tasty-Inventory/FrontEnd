@@ -84,6 +84,10 @@ function Header() {
     }
   };
 
+  const handleClick = () => {
+    alert('현재 준비중인 서비스입니다.');
+  };
+
   return (
     <HeaderContainer>
       <Container>
@@ -101,10 +105,10 @@ function Header() {
               <LinkItem to="/menulist">MenuList</LinkItem>
             </li>
             <li>
-              <LinkItem to="/staff">Staff</LinkItem>
+              <LinkItem onClick={handleClick}>Staff</LinkItem>
             </li>
             <li>
-              <LinkItem to="/settings">Settings</LinkItem>
+              <LinkItem onClick={handleClick}>Settings</LinkItem>
             </li>
             {isAuthenticated ? (
               <li>
