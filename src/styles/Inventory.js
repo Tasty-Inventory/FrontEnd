@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const InventoryLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: ${props => props.$width || ''};
 `;
 
 export const InventoryBodyWrap = styled.div`
@@ -20,6 +20,7 @@ export const HeadlineWrap = styled.div`
   display: flex;
   align-items: center;
   margin-left: 200px;
+  justify-content: ${props => props.$justify || ''};
 `;
 
 export const Headline2 = styled.h2`
