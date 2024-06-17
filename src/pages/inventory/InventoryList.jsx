@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as M from '../../styles/Menu';
+import * as I from '../../styles/Inventory';
 
 export default function InventoryList() {
   // 상태 정의
@@ -99,38 +100,38 @@ export default function InventoryList() {
       </M.MenuContainer>
 
       <M.MenuBodyContainer>
-        <M.MenuBodyWrap>
+        <I.InventoryBodyWrap>
           {selectedOption === 'sold' && (
-            <>
-              <div>
-                <h2>Today 판매량</h2>
+            <I.InventoryLayout>
+              <I.HeadlineWrap>
+                <I.Headline2>Today 판매량</I.Headline2>
                 {editMode ? (
-                  <button type="button" onClick={handleSaveClick}>
+                  <I.SaveBtn type="button" onClick={handleSaveClick}>
                     저장
-                  </button>
+                  </I.SaveBtn>
                 ) : (
-                  <button type="button" onClick={handleEditClick}>
+                  <I.SaveBtn type="button" onClick={handleEditClick}>
                     수정
-                  </button>
+                  </I.SaveBtn>
                 )}
-              </div>
+              </I.HeadlineWrap>
 
               <table>
-                <thead>
+                <I.TableHead>
                   <tr>
-                    <th>No.</th>
-                    <th>메뉴</th>
-                    <th>판매량</th>
+                    <I.TableCell $font="16px">No.</I.TableCell>
+                    <I.TableCell $font="16px">메뉴</I.TableCell>
+                    <I.TableCell $font="16px">판매량</I.TableCell>
                   </tr>
-                </thead>
+                </I.TableHead>
                 <tbody>
-                  {sampleData[0].soldMenuList.map(menu => (
-                    <tr key={menu.menuId}>
-                      <td>{menu.menuId}</td>
-                      <td>{menu.menuName}</td>
-                      <td>
+                  {sampleData[0].soldMenuList.map((menu, index) => (
+                    <I.TableRow key={menu.menuId} isEven={index % 2 === 0}>
+                      <I.TableCell>{menu.menuId}</I.TableCell>
+                      <I.TableCell>{menu.menuName}</I.TableCell>
+                      <I.TableCell>
                         {editMode ? (
-                          <input
+                          <I.TableInput
                             type="number"
                             value={editCount[menu.menuId]}
                             onChange={e =>
@@ -140,14 +141,14 @@ export default function InventoryList() {
                         ) : (
                           menu.soldCount
                         )}
-                      </td>
-                    </tr>
+                      </I.TableCell>
+                    </I.TableRow>
                   ))}
                 </tbody>
               </table>
-            </>
+            </I.InventoryLayout>
           )}
-        </M.MenuBodyWrap>
+        </I.InventoryBodyWrap>
       </M.MenuBodyContainer>
     </div>
   );
