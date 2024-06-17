@@ -11,6 +11,8 @@ const HeaderContainer = styled.header`
   height: 80px;
   background: #fff;
   position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 const Container = styled.div`

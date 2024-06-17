@@ -11,6 +11,7 @@ export const MenuTitle = styled.h1`
 export const MenuContainer = styled.div`
   background: #fff;
   width: 100%;
+  padding-top: 80px;
 `;
 
 export const MenuWrap = styled.div`
@@ -119,7 +120,7 @@ export const MenuBodyContainer = styled.div`
 
 export const AddPageContainer = styled.div`
   width: 390px;
-  margin: 48px auto 0;
+  margin: 128px auto 0;
   display: flex;
   flex-direction: column;
   gap: 40px;

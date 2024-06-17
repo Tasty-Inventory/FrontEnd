@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const FormBox = styled.div`
   width: 358px;
-  margin: 60px auto 32px;
+  margin: 140px auto 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
