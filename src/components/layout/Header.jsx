@@ -95,7 +95,7 @@ function Header() {
         <div>
           <NavList>
             <li>
-              <LinkItem to="/inventory">Inventory</LinkItem>
+              <LinkItem to="/inventoryList">Inventory</LinkItem>
             </li>
             <li>
               <LinkItem to="/menulist">MenuList</LinkItem>

@@ -16,6 +16,7 @@ import AddMenu from './pages/menu/AddMenu';
 import AddInventory from './pages/menu/AddInventory';
 import InventoryDetail from './pages/menu/InventoryDetail';
 import MenuDetail from './pages/menu/MenuDetail';
+import InventoryList from './pages/inventory/InventoryList';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/addmenu" element={<AddMenu />} />
             <Route path="/addinventory" element={<AddInventory />} />
+            <Route path="/inventoryList" element={<InventoryList />} />
           </Routes>
         </div>
       </BrowserRouter>
