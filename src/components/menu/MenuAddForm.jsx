@@ -96,7 +96,7 @@ function MenuAddForm({ onSubmit }) {
         />
       )}
 
-      <M.FlexDiv direction="column" gap="10px">
+      <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="name">메뉴 이름</M.InputLabel>
         <M.InputWrap>
           <M.FormInput
@@ -108,7 +108,7 @@ function MenuAddForm({ onSubmit }) {
         </M.InputWrap>
       </M.FlexDiv>
 
-      <M.FlexDiv direction="column" gap="20px">
+      <M.FlexDiv $direction="column" $gap="20px">
         <M.InputLabel>연관 재고</M.InputLabel>
         <M.OpenButton type="button" onClick={() => setShowModal(true)}>
           재고 추가
@@ -142,20 +142,20 @@ function MenuAddForm({ onSubmit }) {
         </M.Table>
       </M.FlexDiv>
 
-      <M.FlexDiv direction="column" gap="10px">
+      <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="image">메뉴 사진</M.InputLabel>
         <input type="file" id="image" name="image" onChange={handleChange} />
       </M.FlexDiv>
 
-      <M.FlexDiv direction="row" gap="30px" justify="center">
+      <M.FlexDiv $direction="row" $gap="30px" $justify="center">
         <M.SubmitButton
           type="button"
-          border="0.5px solid #7B7A7A"
+          $border="0.5px solid #7B7A7A"
           onClick={navigateToMenuList}
         >
           취소
         </M.SubmitButton>
-        <M.SubmitButton type="submit" back="#fea7a7" color="#fff">
+        <M.SubmitButton type="submit" $back="#fea7a7" $cl="#fff">
           추가
         </M.SubmitButton>
       </M.FlexDiv>

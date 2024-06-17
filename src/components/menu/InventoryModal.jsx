@@ -34,7 +34,7 @@ function InventoryModal({ inventoryList, onInventorySelect, onClose }) {
           </tbody>
         </M.Table>
         <div>
-          <M.SubmitButton border="0.5px solid #7B7A7A" onClick={onClose}>
+          <M.SubmitButton $border="0.5px solid #7B7A7A" onClick={onClose}>
             닫기
           </M.SubmitButton>
         </div>

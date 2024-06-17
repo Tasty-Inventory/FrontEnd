@@ -19,6 +19,20 @@ function AddInventory({ onSubmit }) {
     data.append('inventoryUnit', inventoryData.unit);
     data.append('inventoryImage', inventoryData.image);
 
+    if (inventoryData.image) {
+      data.append('inventoryImage', inventoryData.image);
+    } else {
+      // 기본 이미지를 사용하도록 설정
+
+      const response = await fetch('/assets/MockUp.png');
+
+      const blob = await response.blob();
+      const defaultImage = new File([blob], 'MockUp.png', {
+        type: 'image/png',
+      });
+      data.append('inventoryImage', defaultImage);
+    }
+
     await onSubmit(data, 'add');
     navigate('/menulist');
   };
@@ -42,7 +56,7 @@ function AddInventory({ onSubmit }) {
 
   return (
     <M.AddForm onSubmit={handleSubmit} encType="multipart/form-data">
-      <M.FlexDiv direction="column" gap="10px">
+      <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="name">재고 이름</M.InputLabel>
         <M.InputWrap>
           <M.FormInput
@@ -54,7 +68,7 @@ function AddInventory({ onSubmit }) {
         </M.InputWrap>
       </M.FlexDiv>
 
-      <M.FlexDiv direction="column" gap="10px">
+      <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="unit">재고 단위</M.InputLabel>
         <M.InputWrap>
           <M.FormInput
@@ -66,21 +80,21 @@ function AddInventory({ onSubmit }) {
         </M.InputWrap>
       </M.FlexDiv>
 
-      <M.FlexDiv direction="column" gap="10px">
+      <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="image">재고 사진</M.InputLabel>
         <input type="file" id="image" name="image" onChange={handleChange} />
       </M.FlexDiv>
 
-      <M.FlexDiv direction="row" gap="30px" justify="center">
+      <M.FlexDiv $direction="row" $gap="30px" $justify="center">
         <M.SubmitButton
           type="button"
-          border="0.5px solid #7B7A7A"
+          $border="0.5px solid #7B7A7A"
           onClick={() => navigate('/menulist')}
         >
           취소
         </M.SubmitButton>
 
-        <M.SubmitButton type="submit" back="#fea7a7" color="#fff">
+        <M.SubmitButton type="submit" $back="#fea7a7" $cl="#fff">
           추가
         </M.SubmitButton>
       </M.FlexDiv>

@@ -144,10 +144,10 @@ export const AddForm = styled.form`
 
 export const FlexDiv = styled.div`
   display: flex;
-  flex-direction: ${props => props.direction || 'row'};
-  gap: ${props => props.gap || '0px'};
-  align-items: ${props => props.align || 'normal'};
-  justify-content: ${props => props.justify || 'flex-start'};
+  flex-direction: ${props => props.$direction || 'row'};
+  gap: ${props => props.$gap || '0px'};
+  align-items: ${props => props.$align || 'normal'};
+  justify-content: ${props => props.$justify || 'flex-start'};
 `;
 
 export const InputLabel = styled.label`
@@ -186,13 +186,13 @@ export const SubmitButton = styled.button`
   width: 80px;
   height: 30px;
   border-radius: 15px;
-  background: ${props => props.back || '#fff'};
+  background: ${props => props.$back || '#fff'};
 
-  color: ${props => props.color || '#7B7A7A'};
+  color: ${props => props.$cl || '#7B7A7A'};
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
-  border: ${props => props.border || 'none'};
+  border: ${props => props.$border || 'none'};
   cursor: pointer;
 `;
 
