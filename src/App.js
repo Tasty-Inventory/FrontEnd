@@ -4,7 +4,11 @@ import GlobalStyles from './styles/GlobalStyles';
 import Inventory from './pages/Inventory';
 import MenuList from './pages/menu/MenuList';
 import Settings from './pages/Settings';
-import Staff from './pages/Staff';
+import EmployeeList from './pages/employee/EmployeeList';
+import AddEmployee from './pages/employee/AddEmployee';
+import AddEmployeeEdit from './pages/employee/AddEmployeeEdit';
+import Schedule from './pages/employee/Schedule';
+import Salary from './pages/employee/Salary';
 import Login from './pages/user/Login';
 import LoginNext from './pages/user/LoginNext';
 import FindId from './pages/user/FindId';
@@ -29,7 +33,11 @@ function App() {
             <Route path="/inventory/:id" element={<InventoryEdit />} />
             <Route path="/menulist" element={<MenuList />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/staff" element={<Staff />} />
+            <Route path="/employee/add" element={<AddEmployee />} />
+            <Route path="/employee/:id" element={<AddEmployeeEdit />} />
+            <Route path="/employee" element={<EmployeeList />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/salary" element={<Salary />} />
             <Route path="/login" element={<Login />} />
             <Route path="/loginnext" element={<LoginNext />} />
             <Route path="/findid" element={<FindId />} />

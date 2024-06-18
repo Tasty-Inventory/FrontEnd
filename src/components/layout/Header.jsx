@@ -97,7 +97,7 @@ function Header() {
               <LinkItem to="/menulist">MenuList</LinkItem>
             </li>
             <li>
-              <LinkItem to="/staff">Staff</LinkItem>
+              <LinkItem to="/employee">Employee</LinkItem>
             </li>
             <li>
               <LinkItem to="/settings">Settings</LinkItem>
