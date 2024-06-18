@@ -76,7 +76,10 @@ export const useUpdateEmployee = () => {
   const updateEmployee = async (employeeId, employee) => {
     setLoading(true);
     try {
-      const response = await instance.put(`/employee/${employeeId}`, employee);
+      const response = await instance.patch(
+        `/employee/${employeeId}`,
+        employee,
+      );
       return response.data;
     } catch (error) {
       setError(error.message);

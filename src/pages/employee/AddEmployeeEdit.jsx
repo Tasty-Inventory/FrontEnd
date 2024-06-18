@@ -25,7 +25,7 @@ const AddEmployeeEdit = () => {
   const handleUpdateEmployee = async updatedEmployee => {
     try {
       await updateEmployee(id, updatedEmployee);
-      alert('Employee updated successfully');
+      // alert('Employee updated successfully');
     } catch (err) {
       alert('Error updating employee: ' + err.message);
     }
@@ -34,7 +34,7 @@ const AddEmployeeEdit = () => {
   const handleDeleteEmployee = async () => {
     try {
       await deleteEmployee(id);
-      alert('Employee deleted successfully');
+      // alert('Employee deleted successfully');
     } catch (err) {
       alert('Error deleting employee: ' + err.message);
     }
@@ -48,7 +48,7 @@ const AddEmployeeEdit = () => {
     <S.Container>
       {employee ? (
         <EmployeeEditForm
-          employeeData={employee}
+          employeeData={employee.data}
           onUpdateEmployee={handleUpdateEmployee}
           onDeleteEmployee={handleDeleteEmployee}
         />

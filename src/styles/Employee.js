@@ -17,27 +17,22 @@ export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-
   th,
   td {
     border: 1px solid transparent; /* 구분선을 투명색으로 변경 */
     padding: 8px;
     text-align: center; /* 데이터 값을 가운데 정렬 */
   }
-
   th {
     background-color: #ff69b4; /* 진한 분홍색 */
     color: white;
   }
-
   tr:nth-child(even) {
     background-color: #ffe4e1; /* 연한 분홍색 */
   }
-
   tr:nth-child(odd) {
     background-color: #fff;
   }
-
   tr:hover {
     background-color: #f5f5f5;
     cursor: pointer;
@@ -48,16 +43,13 @@ export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-
   div {
     flex: 1 1 calc(50% - 20px);
-
     label {
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
     }
-
     input {
       width: 100%;
       padding: 8px;
@@ -74,7 +66,6 @@ export const Button = styled.button`
   background-color: #ff69b4; /* 분홍색 */
   color: #fff;
   cursor: pointer;
-
   &:hover {
     background-color: #ff85c1; /* 조금 더 밝은 분홍색 */
   }
@@ -94,12 +85,10 @@ export const Tabs = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px;
-
   a {
     padding: 10px 20px;
     text-decoration: none;
     color: black;
-
     &.active {
       font-weight: bold;
       color: pink; /* 활성화된 탭의 색상 */
@@ -152,7 +141,6 @@ export const FormInput = styled.input`
 
 export const SubmitButton = styled(Button)`
   background-color: #2196f3;
-
   &:hover {
     background-color: #1976d2;
   }
@@ -184,11 +172,9 @@ export const Tab = styled.div`
   padding: 10px 20px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-
   &:hover {
     border-bottom: 2px solid #4caf50;
   }
-
   &.active {
     border-bottom: 2px solid #4caf50;
     color: #ff69b4; /* 분홍색 */
