@@ -276,3 +276,12 @@ export const ModalDiv = styled.div`
   justify-content: center;
   margin: 0 auto;
 `;
+
+export const UsageInput = styled.input`
+  width: 40px;
+  height: 20px;
+  border: 0.5px solid #d3d3d3;
+  background: #fff;
+  font-size: 14px;
+  text-align: center;
+`;

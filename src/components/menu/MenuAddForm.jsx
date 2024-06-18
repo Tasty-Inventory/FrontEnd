@@ -139,7 +139,7 @@ function MenuAddForm({ onSubmit }) {
               <tr key={inventory.inventoryId}>
                 <td>{inventory.inventoryName}</td>
                 <td>
-                  <input
+                  <M.UsageInput
                     type="number"
                     value={inventory.inventoryUsage}
                     onChange={e =>

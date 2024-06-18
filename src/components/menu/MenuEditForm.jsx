@@ -149,7 +149,7 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
               <tr key={inventory.inventoryId}>
                 <td>{inventory.inventoryName}</td>
                 <td>
-                  <input
+                  <M.UsageInput
                     type="number"
                     value={inventory.inventoryUsage}
                     onChange={e =>
