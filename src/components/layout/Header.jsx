@@ -105,7 +105,7 @@ function Header() {
               <LinkItem to="/menulist">MenuList</LinkItem>
             </li>
             <li>
-              <LinkItem onClick={handleClick}>Staff</LinkItem>
+              <LinkItem to="/employee">Employee</LinkItem>
             </li>
             <li>
               <LinkItem onClick={handleClick}>Settings</LinkItem>
