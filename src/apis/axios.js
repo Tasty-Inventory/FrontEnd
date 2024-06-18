@@ -2,10 +2,10 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const instance = axios.create({
-  baseURL: 'https://colot.site',
+  baseURL: process.env.REACT_APP_SERVER_URL,
   withCredentials: true,
   headers: {
-    'Access-Control-Allow-Origin': 'https://colot.site',
+    'Access-Control-Allow-Origin': process.env.REACT_APP_SERVER_URL,
   },
 });
 
