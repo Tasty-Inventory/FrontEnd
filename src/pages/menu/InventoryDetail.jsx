@@ -1,6 +1,6 @@
 // InventoryDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import instance from '../../apis/axios';
 import InventoryEditForm from '../../components/menu/InventoryEditForm';
 import * as M from '../../styles/Menu';
@@ -10,6 +10,7 @@ const InventoryDetail = () => {
   const [initialData, setInitialData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     instance
@@ -27,9 +28,9 @@ const InventoryDetail = () => {
   const handleEditSubmit = data => {
     instance
       .patch(`/inventory/${id}`, data)
-      .then(response => console.log(response.data))
+      .then(alert('재고가 수정되었습니다.'), navigate('/menulist'))
       .catch(err => {
-        console.log(err);
+        alert(err, '서버에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
       });
   };
 
@@ -37,12 +38,9 @@ const InventoryDetail = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       instance
         .delete(`/inventory/${id}`)
-        .then(response => {
-          console.log(response.data);
-          window.location.href = '/menulist';
-        })
+        .then(navigate('/menulist'))
         .catch(err => {
-          console.log(err);
+          alert(err, '서버에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         });
     }
   };

@@ -6,14 +6,14 @@ function InventoryEditForm({ initialData, onSubmit, onDelete, inventoryId }) {
   const [inventoryData, setInventoryData] = useState({
     name: '',
     unit: '',
-    image: null,
+    image: '',
   });
 
   useEffect(() => {
     setInventoryData({
       name: initialData.inventoryName || '',
       unit: initialData.inventoryUnit || '',
-      image: null,
+      image: initialData.inventoryImage || '',
     });
   }, [initialData]);
 
@@ -28,7 +28,6 @@ function InventoryEditForm({ initialData, onSubmit, onDelete, inventoryId }) {
     data.append('inventoryImage', inventoryData.image);
 
     await onSubmit(data, 'edit');
-    navigate('/menulist');
   };
 
   const handleDelete = async () => {
@@ -43,7 +42,12 @@ function InventoryEditForm({ initialData, onSubmit, onDelete, inventoryId }) {
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === 'image') {
-      setInventoryData({ ...inventoryData, [name]: files[0] });
+      const file = files[0];
+      setInventoryData({
+        ...inventoryData,
+        [name]: file,
+        image: URL.createObjectURL(file),
+      });
     } else {
       setInventoryData({ ...inventoryData, [name]: value });
     }
@@ -77,6 +81,17 @@ function InventoryEditForm({ initialData, onSubmit, onDelete, inventoryId }) {
 
       <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="image">재고 사진</M.InputLabel>
+        {inventoryData.image && (
+          <img
+            src={inventoryData.image}
+            alt="Inventory"
+            style={{
+              maxWidth: '200px',
+              maxHeight: '200px',
+              marginBottom: '10px',
+            }}
+          />
+        )}
         <input type="file" id="image" name="image" onChange={handleChange} />
       </M.FlexDiv>
 

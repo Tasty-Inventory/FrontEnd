@@ -9,7 +9,7 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
   const [showModal, setShowModal] = useState(false);
   const [menuData, setMenuData] = useState({
     name: initialData?.menuName || '',
-    image: initialData?.menuImage || null,
+    image: initialData?.menuImage || '',
   });
   const [inventoryList, setInventoryList] = useState([]);
   const [selectedInventories, setSelectedInventories] = useState([]);
@@ -174,6 +174,17 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
 
       <M.FlexDiv $direction="column" $gap="10px">
         <M.InputLabel htmlFor="image">메뉴 사진</M.InputLabel>
+        {menuData.image && (
+          <img
+            src={menuData.image}
+            alt="Inventory"
+            style={{
+              maxWidth: '200px',
+              maxHeight: '200px',
+              marginBottom: '10px',
+            }}
+          />
+        )}
         <input type="file" id="image" name="image" onChange={handleChange} />
       </M.FlexDiv>
 

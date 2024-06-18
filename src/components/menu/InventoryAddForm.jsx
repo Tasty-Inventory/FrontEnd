@@ -22,8 +22,6 @@ function AddInventory({ onSubmit }) {
     if (inventoryData.image) {
       data.append('inventoryImage', inventoryData.image);
     } else {
-      // 기본 이미지를 사용하도록 설정
-
       const response = await fetch('/assets/MockUp.png');
 
       const blob = await response.blob();
