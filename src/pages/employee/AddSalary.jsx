@@ -1,13 +1,25 @@
 import React from 'react';
-import EmployeeTabs from '../../components/employee/EmployeeTabs';
+import SalaryAddForm from '../../components/employee/SalaryAddForm';
 import * as S from '../../styles/Employee';
+import { useAddSalary } from '../../apis/SalaryService';
 
 const AddSalary = () => {
+  const { addSalary, loading, error } = useAddSalary();
+
+  const handleAddSalary = async employee => {
+    try {
+      await addSalary(employee);
+      alert('Salary added successfully');
+    } catch (err) {
+      alert('Error adding employee: ' + err.message);
+    }
+  };
+
   return (
     <S.Container>
-      <EmployeeTabs />
-      <S.Title>급여 관리</S.Title>
-      {/* 여기에 급여 관리 관련 내용 추가 */}
+      <SalaryAddForm onAddSalary={handleAddSalary} />
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
     </S.Container>
   );
 };

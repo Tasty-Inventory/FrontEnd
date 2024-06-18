@@ -7,8 +7,10 @@ import Settings from './pages/Settings';
 import EmployeeList from './pages/employee/EmployeeList';
 import AddEmployee from './pages/employee/AddEmployee';
 import AddEmployeeEdit from './pages/employee/AddEmployeeEdit';
-import Schedule from './pages/employee/Schedule';
-import Salary from './pages/employee/Salary';
+import SchedulePage from './pages/employee/SchedulePage';
+import SalaryList from './pages/employee/SalaryList';
+import AddSalary from './pages/employee/AddSalary';
+import AddSalaryEdit from './pages/employee/AddSalaryEdit';
 import Login from './pages/user/Login';
 import LoginNext from './pages/user/LoginNext';
 import FindId from './pages/user/FindId';
@@ -36,8 +38,11 @@ function App() {
             <Route path="/employee/add" element={<AddEmployee />} />
             <Route path="/employee/:id" element={<AddEmployeeEdit />} />
             <Route path="/employee" element={<EmployeeList />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/salary" element={<Salary />} />
+            <Route path="/schedule" element={<SchedulePage />} />{' '}
+            {/* Updated route for SchedulePage */}
+            <Route path="/salary" element={<SalaryList />} />
+            <Route path="/salary/add" element={<AddSalary />} />
+            <Route path="/salary/:id" element={<AddSalaryEdit />} />
             <Route path="/login" element={<Login />} />
             <Route path="/loginnext" element={<LoginNext />} />
             <Route path="/findid" element={<FindId />} />

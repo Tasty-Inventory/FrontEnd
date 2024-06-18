@@ -5,12 +5,30 @@ export const Container = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  justify-content: flex-end;
 `;
 
 export const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
+  font-weight: bold;
+`;
+
+export const TitleSecond = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 320px;
+`;
+
+export const TitleThird = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 350px;
 `;
 
 export const Table = styled.table`
@@ -24,11 +42,12 @@ export const Table = styled.table`
     text-align: center; /* 데이터 값을 가운데 정렬 */
   }
   th {
-    background-color: #ff69b4; /* 진한 분홍색 */
-    color: white;
+    background-color: #fed2d2; /* 진한 분홍색 */
+    color: black;
+    font-weight: bold;
   }
   tr:nth-child(even) {
-    background-color: #ffe4e1; /* 연한 분홍색 */
+    background-color: #ffeded; /* 연한 분홍색 */
   }
   tr:nth-child(odd) {
     background-color: #fff;
@@ -60,15 +79,26 @@ export const Form = styled.form`
 `;
 
 export const Button = styled.button`
+  padding: 8px 15px;
+  border: none;
+  border-radius: 15px;
+  background-color: #ffdcdc; /* 분홍색 */
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+`;
+
+export const VButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  background-color: #ff69b4; /* 분홍색 */
-  color: #fff;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  &:hover {
-    background-color: #ff85c1; /* 조금 더 밝은 분홍색 */
-  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -77,12 +107,28 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-export const RegisterButton = styled(Button)`
-  margin-left: 20px;
+export const RegisterButton = styled(Button)``;
+export const EmployeeTitle = styled.h1`
+  color: #232121;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 30px;
+`;
+export const EmployeeContainer = styled.div`
+  background: #fff;
+  width: 100%;
+`;
+
+export const EmployeeWrap = styled.div`
+  width: 996px;
+  margin: 0 auto;
 `;
 
 export const Tabs = styled.div`
   display: flex;
+  width: 996px;
   justify-content: flex-start;
   margin-bottom: 20px;
   a {
@@ -91,15 +137,34 @@ export const Tabs = styled.div`
     color: black;
     &.active {
       font-weight: bold;
-      color: pink; /* 활성화된 탭의 색상 */
+      color: pink;
     }
   }
+`;
+export const FlexLayout = styled.ul`
+  display: flex;
+  gap: 20px;
+`;
+
+export const EmployeeLayout = styled.div`
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const EmployeeName = styled.label`
+  color: #232121;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  cursor: pointer;
 `;
 
 export const PageTitle = styled.h1`
   text-align: left; /* 왼쪽 정렬 */
   font-size: 28px;
   margin-bottom: 30px;
+  padding-left: 20px;
 `;
 
 export const LoadingMessage = styled.div`
@@ -147,7 +212,7 @@ export const SubmitButton = styled(Button)`
 `;
 
 export const PageContainer = styled(Container)`
-  max-width: 1200px; /* 너비를 제한하여 화면이 꽉 차지 않도록 함 */
+  width: 100%; /* 너비를 제한하여 화면이 꽉 차지 않도록 함 */
   margin: 0 auto; /* 가운데 정렬 */
   padding: 40px;
 `;
@@ -160,6 +225,9 @@ export const TitleContainer = styled.div`
 `;
 
 export const ContentContainer = styled(Container)`
+  background: #fff;
+  width: 996px;
+  margin: 0 auto;
   padding: 20px;
 `;
 
@@ -180,4 +248,42 @@ export const Tab = styled.div`
     color: #ff69b4; /* 분홍색 */
     font-weight: bold; /* 볼드 처리 */
   }
+`;
+
+export const NavigationButton = styled.button`
+  background-color: transparent;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  &:active {
+    background-color: transparent;
+  }
+`;
+
+export const Select = styled.select`
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  width: 100%;
+`;
+
+export const NavigationAndTitle = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
 `;

@@ -22,17 +22,19 @@ const EmployeeList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <S.PageContainer>
-      <S.PageTitle>Employee</S.PageTitle>
-      <Tabs />
-      <S.ContentContainer>
-        <S.Title>직원 정보</S.Title>
-        <S.ButtonContainer>
-          <S.Button onClick={handleAddButtonClick}>등록</S.Button>
-        </S.ButtonContainer>
-        <EmployeeTable employees={employees} onRowClick={handleRowClick} />
-      </S.ContentContainer>
-    </S.PageContainer>
+    <S.EmployeeContainer>
+      <S.EmployeeWrap>
+        <S.EmployeeTitle>Employee</S.EmployeeTitle>
+        <Tabs />
+        <S.ContentContainer>
+          <S.Title>직원 정보</S.Title>
+          <S.ButtonContainer>
+            <S.Button onClick={handleAddButtonClick}>등록</S.Button>
+          </S.ButtonContainer>
+          <EmployeeTable employees={employees} onRowClick={handleRowClick} />
+        </S.ContentContainer>
+      </S.EmployeeWrap>
+    </S.EmployeeContainer>
   );
 };
 

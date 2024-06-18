@@ -1,183 +1,81 @@
-import React, { useEffect, useState } from 'react';
-import * as S from '../../styles/Employee';
+// src/components/salary/SalaryAddForm.jsx
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as S from '../../styles/Employee';
+import { useAddSalary } from '../../apis/SalaryService';
 
-function SalaryAddForm({ mode, onSubmit, initialData = {} }) {
-  const [salaryData, setSalaryData] = useState({
+const SalaryAddForm = () => {
+  const [salary, setSalary] = useState({
     name: '',
     position: '',
     baseSalary: '',
-    salaryDate: '',
-    workHours: '',
-    totalSalary: '',
-    deductions: '',
-    netSalary: '',
   });
 
-  useEffect(() => {
-    // 임시로 하드코딩된 초기 데이터
-    const hardcodedInitialData = {
-      name: 'John Doe',
-      position: 'Manager',
-      baseSalary: '5000000',
-    };
-
-    // 초기 데이터가 있으면 설정
-    if (initialData && Object.keys(initialData).length > 0) {
-      setSalaryData({
-        ...initialData,
-      });
-    } else {
-      // 초기 데이터가 없으면 하드코딩된 데이터 사용
-      setSalaryData(hardcodedInitialData);
-    }
-  }, [initialData]);
-
   const navigate = useNavigate();
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('name', salaryData.name);
-    formData.append('position', salaryData.position);
-    formData.append('baseSalary', salaryData.baseSalary);
-    formData.append('salaryDate', salaryData.salaryDate);
-    formData.append('workHours', salaryData.workHours);
-    formData.append('totalSalary', salaryData.totalSalary);
-    formData.append('deductions', salaryData.deductions);
-    formData.append('netSalary', salaryData.netSalary);
-
-    onSubmit(formData, mode);
-  };
+  const { addSalary } = useAddSalary();
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setSalaryData(prevData => ({
-      ...prevData,
+    setSalary(prevState => ({
+      ...prevState,
       [name]: value,
     }));
   };
 
-  const navigateToSalaryList = () => {
-    navigate('/stafflist');
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      await addSalary(salary);
+      alert('급여 정보가 성공적으로 추가되었습니다.');
+      navigate('/salary'); // 등록 후 급여 목록 페이지로 이동
+    } catch (error) {
+      console.error('급여 정보 추가 실패:', error);
+      alert('급여 정보 추가에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
-    <S.AddForm onSubmit={handleSubmit}>
-      <S.FlexDiv direction="row" gap="20px">
-        <S.InputWrap>
-          <S.FormInput
-            type="text"
-            id="name"
-            name="name"
-            value={salaryData.name}
-            onChange={handleChange}
-            required
-            placeholder="이름"
-          />
-        </S.InputWrap>
-
-        <S.InputWrap>
-          <S.FormInput
-            type="text"
-            id="position"
-            name="position"
-            value={salaryData.position}
-            onChange={handleChange}
-            required
-            placeholder="직책"
-          />
-        </S.InputWrap>
-      </S.FlexDiv>
-
-      <S.FlexDiv direction="row" gap="20px">
-        <S.InputWrap>
-          <S.FormInput
-            type="number"
-            name="baseSalary"
-            value={salaryData.baseSalary}
-            onChange={handleChange}
-            required
-            placeholder="기본급"
-          />
-        </S.InputWrap>
-
-        <S.InputWrap>
-          <S.FormInput
-            type="date"
-            name="salaryDate"
-            value={salaryData.salaryDate}
-            onChange={handleChange}
-            required
-            placeholder="급여일"
-          />
-        </S.InputWrap>
-      </S.FlexDiv>
-
-      <S.FlexDiv direction="row" gap="20px">
-        <S.InputWrap>
-          <S.FormInput
-            type="number"
-            name="workHours"
-            value={salaryData.workHours}
-            onChange={handleChange}
-            required
-            placeholder="근무시간"
-          />
-        </S.InputWrap>
-
-        <S.InputWrap>
-          <S.FormInput
-            type="number"
-            name="totalSalary"
-            value={salaryData.totalSalary}
-            onChange={handleChange}
-            required
-            placeholder="총급여"
-          />
-        </S.InputWrap>
-      </S.FlexDiv>
-
-      <S.FlexDiv direction="row" gap="20px">
-        <S.InputWrap>
-          <S.FormInput
-            type="number"
-            name="deductions"
-            value={salaryData.deductions}
-            onChange={handleChange}
-            required
-            placeholder="공제액"
-          />
-        </S.InputWrap>
-
-        <S.InputWrap>
-          <S.FormInput
-            type="number"
-            name="netSalary"
-            value={salaryData.netSalary}
-            onChange={handleChange}
-            required
-            placeholder="실수령액"
-          />
-        </S.InputWrap>
-      </S.FlexDiv>
-
-      <S.FlexDiv direction="row" gap="30px" justify="center">
-        <S.SubmitButton
-          type="button"
-          back="#000"
-          onClick={navigateToSalaryList}
-        >
-          취소
-        </S.SubmitButton>
-
-        <S.SubmitButton type="submit" back="#000" color="#fff">
-          {mode === 'add' ? '등록' : '등록'}
-        </S.SubmitButton>
-      </S.FlexDiv>
-    </S.AddForm>
+    <S.EmployeeContainer>
+      <S.EmployeeWrap>
+        <S.Title>급여 등록</S.Title>
+        <S.Form onSubmit={handleSubmit}>
+          <div>
+            <label>이름</label>
+            <input
+              type="text"
+              name="name"
+              value={salary.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>직책</label>
+            <input
+              type="text"
+              name="position"
+              value={salary.position}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>급여</label>
+            <input
+              type="text"
+              name="baseSalary"
+              value={salary.baseSalary}
+              onChange={handleChange}
+            />
+          </div>
+          <S.ButtonContainer>
+            <S.Button type="button" onClick={() => navigate('/salary')}>
+              취소
+            </S.Button>
+            <S.Button type="submit">등록</S.Button>
+          </S.ButtonContainer>
+        </S.Form>
+      </S.EmployeeWrap>
+    </S.EmployeeContainer>
   );
-}
+};
 
 export default SalaryAddForm;

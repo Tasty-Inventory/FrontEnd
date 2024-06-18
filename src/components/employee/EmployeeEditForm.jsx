@@ -144,13 +144,13 @@ const EmployeeEditForm = ({
           />
         </div>
         <S.ButtonContainer>
-          <S.Button type="submit">수정</S.Button>
-          <S.Button type="button" onClick={handleCancel}>
+          <S.VButton type="submit">수정</S.VButton>
+          <S.VButton type="button" onClick={handleCancel}>
             취소
-          </S.Button>
-          <S.Button type="button" onClick={handleDelete}>
+          </S.VButton>
+          <S.VButton type="button" onClick={handleDelete}>
             삭제
-          </S.Button>
+          </S.VButton>
         </S.ButtonContainer>
       </S.Form>
     </S.Container>
