@@ -19,20 +19,18 @@ export default function AddMenu() {
 
   const handleSubmit = async formData => {
     try {
-      const response = await instance.post('/menu', formData);
-      const result = response.data;
-      console.log(result);
+      await instance.post('/menu', formData);
+      alert('메뉴를 추가하였습니다.');
       navigate('/menulist');
-      alert('재고를 추가하였습니다.');
     } catch (error) {
-      console.error('Error:', error);
+      alert(error, '서버에 오류가 발생했습니다. 잠시 후 시도하세요.');
     }
   };
 
   return (
     <M.AddPageContainer>
       <M.AddPageHeadline>새 메뉴 추가하기</M.AddPageHeadline>
-      <MenuAddForm mode="add" onSubmit={handleSubmit} />
+      <MenuAddForm onSubmit={handleSubmit} />
     </M.AddPageContainer>
   );
 }

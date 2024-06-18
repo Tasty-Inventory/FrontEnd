@@ -8,16 +8,17 @@ import InventoryModal from './InventoryModal';
 function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
   const [showModal, setShowModal] = useState(false);
   const [menuData, setMenuData] = useState({
-    name: '',
-    image: null,
+    name: initialData?.menuName || '',
+    image: initialData?.menuImage || null,
   });
-  const [inventoryList, setInventoryList] = useState([]); // 재고 목록 상태
-  const [selectedInventories, setSelectedInventories] = useState([]); // 선택한 재고 상태
+  const [inventoryList, setInventoryList] = useState([]);
+  const [selectedInventories, setSelectedInventories] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (initialData) {
-      setMenuData(initialData);
+      setMenuData({ name: initialData.menuName, image: initialData.menuImage });
+      setSelectedInventories(initialData.relatedInventories || []);
     }
   }, [initialData]);
 
@@ -32,14 +33,16 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
       });
   }, []);
 
-  // 재고 검색 모달에서 재고를 선택했을 때 호출되는 함수
   const handleInventorySelect = inventory => {
     const isDuplicate = selectedInventories.some(
       item => item.inventoryId === inventory.inventoryId,
     );
 
     if (!isDuplicate) {
-      setSelectedInventories(prevState => [...prevState, inventory]);
+      setSelectedInventories(prevState => [
+        ...prevState,
+        { ...inventory, inventoryUsage: '' },
+      ]);
     }
   };
 
@@ -59,6 +62,16 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
     }
   };
 
+  const handleUsageChange = (inventoryId, value) => {
+    setSelectedInventories(prevState =>
+      prevState.map(inventory =>
+        inventory.inventoryId === inventoryId
+          ? { ...inventory, inventoryUsage: value }
+          : inventory,
+      ),
+    );
+  };
+
   const handleDelete = async () => {
     try {
       await onDelete(menuId);
@@ -72,20 +85,22 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', menuData.name);
     formData.append('image', menuData.image);
-    selectedInventories.forEach((inv, index) => {
-      formData.append(
-        `relatedInventory[${index}][inventoryId]`,
-        inv.inventoryId,
-      );
-      formData.append(
-        `relatedInventory[${index}][inventoryUsage]`,
-        inv.inventoryUsage,
-      );
-    });
 
-    // onSubmit prop을 통해 부모 컴포넌트에 데이터 전달
+    const data = {
+      name: menuData.name,
+      relatedInventories: selectedInventories.map(inv => ({
+        inventoryId: inv.inventoryId,
+        inventoryUsage: inv.inventoryUsage,
+      })),
+    };
+
+    formData.append(
+      'data',
+      new Blob([JSON.stringify(data)], {
+        type: 'application/json',
+      }),
+    );
     onSubmit(formData);
   };
 
@@ -109,7 +124,7 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
           <M.FormInput
             type="text"
             name="name"
-            value={menuData.menuName}
+            value={menuData.name}
             onChange={handleChange}
           />
         </M.InputWrap>
@@ -133,7 +148,15 @@ function MenuEditForm({ onSubmit, onDelete, initialData, menuId }) {
             {selectedInventories.map(inventory => (
               <tr key={inventory.inventoryId}>
                 <td>{inventory.inventoryName}</td>
-                <td>데이터없음</td>
+                <td>
+                  <input
+                    type="number"
+                    value={inventory.inventoryUsage}
+                    onChange={e =>
+                      handleUsageChange(inventory.inventoryId, e.target.value)
+                    }
+                  />
+                </td>
                 <td>{inventory.inventoryUnit}</td>
                 <td>
                   <button

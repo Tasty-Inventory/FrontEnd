@@ -10,7 +10,6 @@ function InventoryModal({ inventoryList, onInventorySelect, onClose }) {
           <thead>
             <tr>
               <th>재고명</th>
-              <th>사용량</th>
               <th>단위</th>
               <th>선택</th>
             </tr>
@@ -19,7 +18,6 @@ function InventoryModal({ inventoryList, onInventorySelect, onClose }) {
             {inventoryList.map(inventory => (
               <tr key={inventory.inventoryId}>
                 <td>{inventory.inventoryName}</td>
-                <td>{inventory.inventoryUsage}</td>
                 <td>{inventory.inventoryUnit}</td>
                 <td>
                   <button

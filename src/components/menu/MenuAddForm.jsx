@@ -21,7 +21,7 @@ function MenuAddForm({ onSubmit }) {
         setInventoryList(response.data.data);
       })
       .catch(error => {
-        console.error(error);
+        alert(error, '서버에 오류가 발생했습니다. 잠시 후 시도하세요.');
       });
   }, []);
 
@@ -31,7 +31,10 @@ function MenuAddForm({ onSubmit }) {
     );
 
     if (!isDuplicate) {
-      setSelectedInventories(prevState => [...prevState, inventory]);
+      setSelectedInventories(prevState => [
+        ...prevState,
+        { ...inventory, inventoryUsage: '' },
+      ]);
     }
   };
 
@@ -51,35 +54,44 @@ function MenuAddForm({ onSubmit }) {
     }
   };
 
+  const handleUsageChange = (inventoryId, value) => {
+    setSelectedInventories(prevState =>
+      prevState.map(inventory =>
+        inventory.inventoryId === inventoryId
+          ? { ...inventory, inventoryUsage: value }
+          : inventory,
+      ),
+    );
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
 
     const formData = new FormData();
 
-    // 이미지 추가
     formData.append('image', menuData.image);
 
     // 데이터 객체 생성
     const data = {
       name: menuData.name,
-      relatedInventories: selectedInventories.map((inv, index) => ({
+      relatedInventories: selectedInventories.map(inv => ({
         inventoryId: inv.inventoryId,
         inventoryUsage: inv.inventoryUsage,
       })),
     };
 
-    formData.append('data', JSON.stringify(data));
+    formData.append(
+      'data',
+      new Blob([JSON.stringify(data)], {
+        type: 'application/json',
+      }),
+    );
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
 
-    try {
-      await onSubmit(formData);
-      navigate('/menulist');
-    } catch (error) {
-      console.error('Failed to submit:', error);
-    }
+    onSubmit(formData);
   };
 
   const navigateToMenuList = () => {
@@ -126,7 +138,15 @@ function MenuAddForm({ onSubmit }) {
             {selectedInventories.map(inventory => (
               <tr key={inventory.inventoryId}>
                 <td>{inventory.inventoryName}</td>
-                <td>{inventory.inventoryUsage}</td>
+                <td>
+                  <input
+                    type="number"
+                    value={inventory.inventoryUsage}
+                    onChange={e =>
+                      handleUsageChange(inventory.inventoryId, e.target.value)
+                    }
+                  />
+                </td>
                 <td>{inventory.inventoryUnit}</td>
                 <td>
                   <button
