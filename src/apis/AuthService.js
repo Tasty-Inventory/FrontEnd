@@ -90,6 +90,7 @@ const AuthService = {
           user_state: user_state,
         },
       });
+      console.log(response.data);
       return response.data;
     } catch (error) {
       throw error;
