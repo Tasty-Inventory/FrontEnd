@@ -75,9 +75,10 @@ const AuthService = {
 
     try {
       const response = await instance.get(serviceUri, { params });
-      console.log(response);
+
       const authURL = response.data;
-      window.location.href = authURL;
+      console.log(authURL);
+      // window.location.href = authURL;
     } catch (error) {
       throw error;
     }
