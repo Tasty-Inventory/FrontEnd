@@ -1,4 +1,4 @@
-# Tasty-Inventory: Back-End
+# Tasty-Inventory: Front-End
 
 ### 1. 개요
 
